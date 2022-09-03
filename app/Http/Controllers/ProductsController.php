@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Payment;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Order;
@@ -30,9 +31,9 @@ class ProductsController extends Controller
     public function addToCart(Request $request, $id)
     {
         $product = Product::findOrFail($id);
-          
+
         $cart = session()->get('cart', []);
-  
+
         if(isset($cart[$id])) {
             $cart[$id]['quantity']++;
         } else {
@@ -44,13 +45,13 @@ class ProductsController extends Controller
                 "image" => $product->image
             ];
         }
-          
+
         session()->put('cart', $cart);
         return redirect()->back()->with('success', 'Product added to cart successfully!');
     }
 
     public function confirmorder(Request $request)
-    { 
+    {
         $user = Auth::user()->id;
 
         $orders = new Order;
@@ -63,19 +64,29 @@ class ProductsController extends Controller
             $sales->sku=$request->productsku[$key];
             $sales->quantity=$request->quantity[$key];
             $sales->user_id=$user;
-            //$sales->order_id=$order;
+            $sales->order_id=$orders->id;
             $sales->save();
 
+            Product::where('sku',$request->productsku[$key])->update([
+                'quantity' => DB::raw('quantity - '.$request->quantity[$key])
+            ]);
         }
-    
+
+        Payment::create([
+            'user_id' => $user,
+            'orders_id' => $orders->id,
+            'amount' => $request->description,
+            'payment_mode' => 0
+        ]);
+
 
        //dd($request->all());
        session()->forget('cart');
        return redirect('/pos');
       // dd($orders);
     }
-    
-       
+
+
 
 
 
@@ -88,7 +99,7 @@ class ProductsController extends Controller
             session()->flash('success', 'Cart updated successfully');
         }
     }
-  
+
     /**
      * Write code on Method
      *
