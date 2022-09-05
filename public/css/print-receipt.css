@@ -1,0 +1,62 @@
+@media screen {
+
+    #printSection {
+
+        display: none;
+
+    }
+
+}
+@media print {
+    body * {
+
+        visibility: hidden;
+
+    }
+    #printSection {
+
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+
+    }
+
+    #printSection,
+    #printSection * {
+
+        visibility: visible;
+    }
+
+    h3 {
+        font-size: 3rem;
+    }
+
+    p, h5 {
+        font-size: 2rem;
+    }
+
+    th, td, tr {
+        font-size: 2rem;
+    }
+
+    td {
+        padding-top: .75rem;
+        padding-bottom: .75rem;
+    }
+
+    body {
+        font-family: Consolas;
+    }
+
+    tr {
+        vertical-align: top;
+    }
+}
+.white-space-wrap{
+    white-space: nowrap;
+}
+
+.word-break-all{
+    word-break: break-all;
+}
