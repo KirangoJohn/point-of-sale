@@ -8,7 +8,7 @@
     <a class="nav-item nav-link" href="{{url('/pos')}}">POS</a>
     <a class="nav-item nav-link" href="{{url('/stocks')}}">Stock</a>
     <a class="nav-item nav-link" href="#">Purchases</a>
-    <a class="nav-item nav-link" href="#">Reports</a>
+    <a class="nav-item nav-link" href="{{'reports/receipt'}}">Reports</a>
 
     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->

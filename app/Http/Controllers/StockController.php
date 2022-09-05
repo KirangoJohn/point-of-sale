@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use DB;
+use Auth;
 
 class StockController extends Controller
 {
@@ -41,14 +42,29 @@ class StockController extends Controller
      */
     public function store(Request $request)
     {
-        $items = $request->validate([
+        $this -> validate($request,[
             'product_name' => 'required',
             'sku' => 'required',
             'description' => 'required',
+            'buying_price' => 'required',
             'price' => 'required',
             'quantity' => 'required', 
+            'manuf_date' => '',
+            'exp_date' => '', 
+            
         ]);
-        $show = Product::create($items);
+        $items = new Product;
+        
+            $items->product_name = $request->input('product_name');
+            $items->sku = $request->input('sku');
+            $items->description = $request->input('description');
+            $items->buying_price = $request->input('buying_price');
+            $items->price = $request->input('price');
+            $items->quantity = $request->input('quantity');
+            $items->manuf_date = $request->input('manuf_date');
+            $items->exp_date = $request->input('exp_date');
+            $items->user_id = auth()->user()->id;
+            $items->save();
    
         return redirect()->back();
     }
@@ -92,11 +108,11 @@ class StockController extends Controller
 
         $search = $request->get('search');
         $products = DB::table('products')
-          ->select('id','product_name','sku','description','price', 'quantity', 'manuf_date', 'exp_date')
+          ->select('id','product_name','sku','description', 'quantity', 'manuf_date', 'exp_date')
           ->where('sku', 'LIKE', "%{$search}%")
           ->get();
 
-        return view('stocks.index', compact('products'));
+          return view('stocks.index', compact('products'));
     }
 
     /**

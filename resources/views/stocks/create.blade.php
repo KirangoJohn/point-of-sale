@@ -47,6 +47,12 @@
         </div>
         <div class="col-sm-6">
                 <div class="form-group">
+              <label for="buying_price">Price:</label>
+              <input type="text" class="form-control" name="buying_price" required/>
+          </div>
+        </div>
+        <div class="col-sm-6">
+                <div class="form-group">
               <label for="quantity">Quantity:</label>
               <input type="text" class="form-control" name="quantity" required/>
           </div>

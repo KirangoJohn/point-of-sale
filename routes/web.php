@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\PDFController;
 
 
 
@@ -33,6 +34,9 @@ Route::post('/order', [ProductsController::class, 'confirmorder']);
 Route::resource('stocks', 'StockController');
 Route::resource('purchases', 'PurchaseController');
 //Route::post('/', [StockController::class, 'stocks'])->name('stocks/create'); 
+Route::get('report/receipt', [ReceiptController::class, 'index'])->name('receipt');
+Route::get('generate-pdf', [PDFController::class, 'generatePDF']);
+
 
 Auth::routes();
 

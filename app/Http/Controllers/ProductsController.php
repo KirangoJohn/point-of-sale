@@ -53,6 +53,7 @@ class ProductsController extends Controller
     public function confirmorder(Request $request)
     {
         $user = Auth::user()->id;
+        $cashier = Auth::user()->name;
 
         $orders = new Order;
         $orders->user_id=$user;
@@ -64,6 +65,7 @@ class ProductsController extends Controller
             $sales->sku=$request->productsku[$key];
             $sales->quantity=$request->quantity[$key];
             $sales->user_id=$user;
+            $sales->cashier=$cashier;
             $sales->order_id=$orders->id;
             $sales->save();
 

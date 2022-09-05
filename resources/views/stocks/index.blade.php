@@ -17,7 +17,7 @@
             <th>No</th>
             <th>Item</th>
             <th>SKU</th>
-            <th>Price</th>
+           
             <th>Quantity</th>
             <th>Manf Date</th>
             <th>Expiry Date</th>
@@ -29,7 +29,7 @@
              <td>{{ $loop->index + 1 }}</td>
             <td>{{ $product->product_name }}</td>
             <td>{{ $product->sku }}</td>
-            <td>{{ $product->price }}</td>
+           
             <td>{{ $product->quantity }}</td>
             <td>{{ $product->manuf_date }}</td>
             <td>{{ $product->exp_date }}</td>

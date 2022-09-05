@@ -13,13 +13,13 @@
             <div class="col-sm-6">
             <div class="form-group"> 
             <label for="item">Item Name:</label>
-              <input type="text" class="form-control " name="name"  value="{{ $stocks->name }}" disabled/>
+              <input type="text" class="form-control " name="name"  value="{{ $stocks->product_name }}" disabled/>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
               <label for="sku">SKU:</label>
-              <input type="text" class="form-control" name="sku" value="{{ $stocks->name }}" disabled/>
+              <input type="text" class="form-control" name="sku" value="{{ $stocks->sku }}" disabled/>
           </div>
         </div>
         <div class="col-sm-6">
@@ -43,7 +43,7 @@
         <div class="col-sm-6">
                 <div class="form-group">
               <label for="price">Buying Price:</label>
-              <input type="text" class="form-control" name="price" value="{{ $stocks->price }}"/>
+              <input type="text" class="form-control" name="buying_price" value="{{ $stocks->buying_price }}"/>
           </div>
         </div>
         <div class="col-sm-6">
