@@ -12,4 +12,8 @@ class Sale extends Model
     protected $fillable = [
      'product_name', 'orders_id'
     ];
+
+    public function product(){
+        return $this->hasOne(Product::class,'sku','sku');
+    }
 }

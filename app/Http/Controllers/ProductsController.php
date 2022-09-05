@@ -81,11 +81,26 @@ class ProductsController extends Controller
             'payment_mode' => 0
         ]);
 
+        $userOrder = Order::
+            select(\DB::raw('
+                orders.*,
+                (select company_name from company) as company_name,
+                (select address from company) as company_address,
+                (select phone_number from company) as company_phone_number
+            '))
+            ->where('id', $orders->id)
+            ->with('sales', 'sales.product', 'payment')
+            ->first();
 
-       //dd($request->all());
-       session()->forget('cart');
-       return redirect('/pos');
-      // dd($orders);
+        $userOrder->sales->map(function ($sale){
+            $sale->total_price += $sale->product->price * $sale->quantity;
+        });
+
+        //dd($request->all());
+        session()->flash('userOrder', $userOrder);
+        session()->forget('cart');
+        return redirect('/pos');
+        // dd($orders);
     }
 
 
