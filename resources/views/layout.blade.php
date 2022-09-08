@@ -47,7 +47,7 @@
           {{ session('success') }}
         </div>
     @endif-->
-   @include('navbar')
+   
     @yield('content')
 </div>
 

@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-sm-8">
                 <div class="row">
-
+                <input class="form-control" name="search" type="text" placeholder="Search">
                     <table class="table">
                         <tr>
 
@@ -40,7 +40,7 @@
 
             <!------ CART------->
             <div class="col-sm-4">
-                <input class="form-control" name="search" type="text" placeholder="Search">
+               
                 <table id="cart" class="table table-hover table-condensed">
                     <thead>
                     <tr>

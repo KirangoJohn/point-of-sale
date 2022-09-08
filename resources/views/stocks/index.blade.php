@@ -1,5 +1,6 @@
 @extends('layout') 
 @section('content')
+@include('navbar')
 
 <div class="container-fluid">
 <h1>Item List</h1>

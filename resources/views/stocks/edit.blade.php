@@ -1,5 +1,6 @@
 @extends('layout') 
 @section('content')
+@include('navbar')
 
 <div class="container">
 <h1>Add Purchases</h1>
