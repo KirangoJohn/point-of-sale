@@ -31,7 +31,7 @@ class ProductsController extends Controller
           ->select('id','product_name','sku','description','price')
           ->where('sku', 'LIKE', "%{$search}%")
           ->get();
-          return view('pos.products', compact('products'));
+          return view('pos.products', compact('products','search'));
     }
 
     public function cart()

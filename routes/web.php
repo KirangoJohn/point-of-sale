@@ -23,9 +23,8 @@ Route::get('/', function () {
 });
 
 //Route::get('/products', 'App\Http\Controllers\ProductsController@index');
-
- 
-
+Route::resource('company', 'CompanyController');
+Route::resource('products', 'ProductsController');
 Route::get('pos', [ProductsController::class, 'index'])->name('pos');  
 Route::get('cart', [ProductsController::class, 'cart'])->name('cart');
 Route::get('add-to-cart/{id}', [ProductsController::class, 'addToCart'])->name('add.to.cart');
@@ -52,6 +51,7 @@ Auth::routes();
 Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('logout',[AuthController::class, 'logout'])->name('logout');
+//Route::get('register',[AuthController::class, 'register'])->name('register');
 
 Route::group(['middleware'=>'auth'], function () {
 	Route::get('permissions-all-users',['middleware'=>'check-permission:user|admin|superadmin','uses'=>'HomeController@allUsers']);

@@ -76,6 +76,15 @@
               <input type="text" class="form-control" name="reorder" required/>
           </div>
         </div>
+        <div class="col-sm-6">
+                <div class="form-group">
+              <label for="shop">Shop:</label>
+              <select name="shop" id="" class="form-control">
+                <option value="retail">Retail</option>
+                <option value="wholesale">Wholesale</option>
+              </select>
+          </div>
+        </div>
 </div>
         <button type="submit" class="btn btn-primary">Add Item</button>
 

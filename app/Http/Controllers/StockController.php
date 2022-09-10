@@ -65,6 +65,7 @@ class StockController extends Controller
             'reorder' => '', 
             'manuf_date' => '',
             'exp_date' => '', 
+            'shop' => 'required',
             
         ]);
         $items = new Product;
@@ -80,6 +81,7 @@ class StockController extends Controller
             $items->reorder = $request->input('reorder');
             $items->manuf_date = $request->input('manuf_date');
             $items->exp_date = $request->input('exp_date');
+            $items->shop = $request->input('shop');
             $items->user_id = auth()->user()->id;
             $items->save();
    

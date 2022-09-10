@@ -14,20 +14,25 @@
             <div class="col-sm-6">
             <div class="form-group"> 
             <label for="item">Item Name:</label>
-          
-              <input type="text" class="form-control " name="name"  value="{{ $product->product_name }}" disabled/>
+              <input type="text" class="form-control " name="name"  value="{{ $product->product_name }}" />
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
+              <label for="category">Category:</label>
+              <input type="text" class="form-control" name="category" value="{{ $product->category }}" />
+          </div>
+          </div>
+          <div class="col-sm-6">
+                <div class="form-group">
               <label for="sku">SKU:</label>
-              <input type="text" class="form-control" name="sku" value="{{ $product->sku }}" disabled/>
+              <input type="text" class="form-control" name="sku" value="{{ $product->sku }}" />
           </div>
         </div>
         <div class="col-sm-6">
                 <div class="form-group">
               <label for="description">Description:</label>
-              <input type="text" class="form-control" name="description" value="{{ $product->description }}" disabled/>
+              <input type="text" class="form-control" name="description" value="{{ $product->description }}" />
           </div>
         </div>
         <div class="col-sm-6">
@@ -51,16 +56,22 @@
         <div class="col-sm-6">
                 <div class="form-group">
               <label for="unit">Unit:</label>
-              <input type="text" class="form-control" name="unit" value="{{ $product->unit }}" required/>
+              <input type="text" class="form-control" name="unit" value="{{ $product->unit }}" />
           </div>
         </div>
         <div class="col-sm-6">
                 <div class="form-group">
               <label for="quantity">Quantity:</label>
-              <input type="text" class="form-control" name="quantity" value="{{ $product->quantity }}" required/>
+              <input type="text" class="form-control" name="quantity" value="{{ $product->quantity }}" />
           </div>
         </div>
-</div>
+        <div class="col-sm-6">
+                <div class="form-group">
+              <label for="reorder">Reorder:</label>
+              <input type="text" class="form-control" name="reorder" value="{{ $product->reorder }}" />
+          </div>
+        </div>
+        
         <button type="submit" class="btn btn-primary">Update</button>
 
 </form>

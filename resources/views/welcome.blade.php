@@ -32,9 +32,10 @@
                     @endauth
                 </div-->
             @endif
-            <div class="text-center">
-            <hr>
-            <img src="{{ asset('/public/images/logo111.png') }}">
+     
+  <section class="py-5 text-center container">
+            <div class="text-center row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
                 <h5>Zinofit Technologies</h5>
                 <p >With specialize in providing business solutions for SMEs through technology</p>
                 <h4>0724381736</h4>
@@ -52,12 +53,7 @@
                 </div>
             @endif
             </div>
-            </div>
-
-                
-                    
-                </div>
-            </div>
+        </section>
         </div>
     </body>
 </html>

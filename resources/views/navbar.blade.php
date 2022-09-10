@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-md">
     <div class="container-fluid">
         <a class="navbar-brand" href="{{url('/home')}}">Zinofit</a>
         <button class="navbar-toggler">
@@ -19,8 +19,13 @@
     @endif
     @if(checkPermission(['admin','superadmin']))
     <a class="nav-item nav-link" href="{{'salesreports'}}">Sales Reports</a>
-</li>
+    </li>
     @endif
+    @if(checkPermission(['admin','superadmin']))
+    <a class="nav-item nav-link" href="{{url('/company.create')}}">Company</a>
+    @endif
+    
+    
     <ul class="navbar-nav ms-auto" style="float:right">
                         <!-- Authentication Links -->
                         @guest

@@ -12,7 +12,26 @@
         <div class="row">
             <div class="col-sm-8">
                 <div class="row">
-                <input class="form-control" name="search" type="text" placeholder="Search">
+                <div class="row">
+                    <div class="col-sm-5">
+                    <form action="{{ route('products.index') }}" method="GET">
+                    <input class="form-control" name="search" type="text" placeholder="Search Items">
+                    </div>
+                    <div class="col-sm-2">
+                    <button type="button" class="btn btn-primary" type="submit">Search</button>
+                    </div>
+                    </form>  
+                    <div class="col-sm-3"> 
+                    <select class="form-control" id="exampleSelect">
+                    <option>Retail</option>
+                    <option>Wholesale</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <button type="button" class="btn btn-primary">Select</button>
+                    </div>
+                    
+                </div>
                     <table class="table">
                         <tr>
 
@@ -29,7 +48,7 @@
                                 <td>{{ $product->price }}</td>
 
                                 <td>
-                                    <a href="{{ route('add.to.cart', $product->id) }}"><i class="fa fa-shopping-cart" style="font-size:24px"></i></a>
+                                    <a class="btn btn-primary" href="{{ route('add.to.cart', $product->id) }}">Shop</a>
                                 </td>
                             </tr>
                         @endforeach

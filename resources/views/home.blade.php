@@ -23,7 +23,9 @@
                     <div class="row">
                 <div class="col-sm-4">
                 <div class="card bg-warning text-white">
-                <div class="card-body">Total Sales</div>
+                <div class="card-body">Total Sales
+                    <br>
+                </div>
                         </div>
                 </div>
                 <div class="col-sm-4"><div class="card bg-danger text-white">

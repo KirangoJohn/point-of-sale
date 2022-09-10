@@ -3,21 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Product;
+use App\Models\Company;
+use DB;
 
-class ItemController extends Controller
+class CompanyController extends Controller
 {
-     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    
     /**
      * Display a listing of the resource.
      *
@@ -25,10 +15,7 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $products = Product::latest()->paginate(5);
-    
-        return view('items.index',compact('products'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+        //
     }
 
     /**
@@ -38,7 +25,7 @@ class ItemController extends Controller
      */
     public function create()
     {
-        return view('items.create');
+        return view('company.create');
     }
 
     /**
@@ -49,7 +36,14 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $company_name = $request->input('company_name');
+        $address = $request->input('address');
+        $phone_number = $request->input('phone_number');
+        $vat_no = $request->input('vat_no');
+        $kra_pin = $request->input('kra_pin');
+        DB::insert('insert into company (company_name, address, phone_number,vat_no, kra_pin) values(?,?,?,?,?)',[$company_name, $address, $phone_number,$vat_no,$kra_pin]);
+   
+        return redirect()->back();
     }
 
     /**
@@ -71,8 +65,7 @@ class ItemController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::findOrFail($id);
-        return view('items.edit',compact('product'));
+        //
     }
 
     /**
@@ -82,25 +75,9 @@ class ItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
-        $request->validate([
-            'product_name' => 'required',
-            'category' => 'required',
-            'sku' => 'required',
-            'description' => 'required',
-            'buying_price' => 'required',
-            'price' => 'required',
-            'unit'=>'required',
-            'reorder'=>'required',
-            'quantity' => 'required', 
-            'manuf_date' => '',
-            'exp_date' => '', 
-        ]);
-        $product->update($request->all());
-    
-        return redirect()->route('items.index')
-                        ->with('success','Product updated successfully');
+        //
     }
 
     /**
