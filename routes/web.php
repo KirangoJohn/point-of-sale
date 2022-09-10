@@ -24,6 +24,8 @@ Route::get('/', function () {
 
 //Route::get('/products', 'App\Http\Controllers\ProductsController@index');
 
+ 
+
 Route::get('pos', [ProductsController::class, 'index'])->name('pos');  
 Route::get('cart', [ProductsController::class, 'cart'])->name('cart');
 Route::get('add-to-cart/{id}', [ProductsController::class, 'addToCart'])->name('add.to.cart');
@@ -31,17 +33,28 @@ Route::patch('update-cart', [ProductsController::class, 'update'])->name('update
 Route::delete('remove-from-cart', [ProductsController::class, 'remove'])->name('remove.from.cart');
 Route::post('/order', [ProductsController::class, 'confirmorder']);
 
+Route::group(['middleware' => 'prevent-back-history'], function () {
 Route::resource('stocks', 'StockController');
-Route::resource('purchases', 'PurchaseController');
+Route::resource('items', 'ItemController');
+Route::resource('salesreports', 'SalesReportController');
+Route::resource('purchases', 'PurchaseController');});
+
+
 //Route::post('/', [StockController::class, 'stocks'])->name('stocks/create'); 
 Route::get('report/receipt', [ReceiptController::class, 'index'])->name('receipt');
 Route::get('generate-pdf', [PDFController::class, 'generatePDF']);
 
 
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('logout',[AuthController::class, 'logout'])->name('logout');
+
+Route::group(['middleware'=>'auth'], function () {
+	Route::get('permissions-all-users',['middleware'=>'check-permission:user|admin|superadmin','uses'=>'HomeController@allUsers']);
+	Route::get('permissions-admin-superadmin',['middleware'=>'check-permission:admin|superadmin','uses'=>'HomeController@adminSuperadmin']);
+	Route::get('permissions-superadmin',['middleware'=>'check-permission:superadmin','uses'=>'HomeController@superadmin']);
+});

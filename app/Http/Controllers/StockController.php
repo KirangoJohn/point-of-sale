@@ -4,11 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Purchase;
 use DB;
 use Auth;
 
 class StockController extends Controller
 {
+    
+/**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -44,11 +55,14 @@ class StockController extends Controller
     {
         $this -> validate($request,[
             'product_name' => 'required',
+            'category' => 'required',
             'sku' => 'required',
             'description' => 'required',
             'buying_price' => 'required',
             'price' => 'required',
+            'unit' => '',
             'quantity' => 'required', 
+            'reorder' => '', 
             'manuf_date' => '',
             'exp_date' => '', 
             
@@ -56,11 +70,14 @@ class StockController extends Controller
         $items = new Product;
         
             $items->product_name = $request->input('product_name');
+            $items->category = $request->input('category');
             $items->sku = $request->input('sku');
             $items->description = $request->input('description');
             $items->buying_price = $request->input('buying_price');
             $items->price = $request->input('price');
+            $items->unit = $request->input('unit');
             $items->quantity = $request->input('quantity');
+            $items->reorder = $request->input('reorder');
             $items->manuf_date = $request->input('manuf_date');
             $items->exp_date = $request->input('exp_date');
             $items->user_id = auth()->user()->id;
@@ -105,6 +122,13 @@ class StockController extends Controller
         
         DB::update('update products set quantity=?+quantity WHERE id=?',
         [$quantity, $id]);
+
+        $items = new Purchase;
+            $items->products_id = $request->input('products_id');
+            $items->quantity = $request->input('quantity');
+            $items->date = $request->input('date');
+            $items->buying_price = $request->input('buying_price');
+            $items->save();
 
         $search = $request->get('search');
         $products = DB::table('products')

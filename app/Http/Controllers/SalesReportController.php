@@ -3,21 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Purchase;
+use App\Models\Sale;
 use DB;
 
-class PurchaseController extends Controller
+class SalesReportController extends Controller
 {
-     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-    
     /**
      * Display a listing of the resource.
      *
@@ -25,12 +15,17 @@ class PurchaseController extends Controller
      */
     public function index()
     {
-       
-        $purchases = DB::table('products')
-        ->select('products.product_name', 'products.sku','products.description', 'products.buying_price', 'purchases.quantity','purchases.date')
-        ->join('purchases', 'products.id', '=', 'purchases.products_id')
-        ->get();
-          return view('purchases.index', compact('purchases'));
+        $sales = DB::table('products')
+          ->select('products.product_name', 'products.sku','products.price', \DB::raw("SUM(sales.quantity) as quantity"), \DB::raw("SUM(sales.quantity*products.price) as subtotal") )
+          ->join('sales', 'sales.sku', '=', 'products.sku')
+          ->groupBy('sales.sku')
+          ->get();
+
+          $totals = DB::table('products')
+          ->select('products.price',\DB::raw("SUM(sales.quantity*products.price) as total") )
+          ->join('sales', 'sales.sku', '=', 'products.sku')
+          ->get();
+        return view('salesreports.index',compact('sales', 'totals'));
     }
 
     /**
@@ -40,9 +35,7 @@ class PurchaseController extends Controller
      */
     public function create()
     {
-        $qty=Product::all();
-        dd($qty);
-        
+        //
     }
 
     /**
@@ -75,7 +68,7 @@ class PurchaseController extends Controller
      */
     public function edit($id)
     {
-       
+        //
     }
 
     /**

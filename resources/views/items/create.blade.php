@@ -4,22 +4,16 @@
 
 <div class="container">
 <h1>Add new Products</h1>
-<div><a class="btn btn-primary btn-lg float-right" href="{{url('/items')}}" role="button">View Products</a></div>
+<div><a class="btn btn-primary btn-lg float-right" href="{{url('stocks/create')}}" role="button">View Products</a></div>
 <hr>
        
-<form method="post" action="{{ route('stocks.store') }}">
+<form method="post" action="{{ route('items.store') }}">
 @csrf  
     <div class="row">
             <div class="col-sm-6">
             <div class="form-group"> 
             <label for="item">Item Name:</label>
               <input type="text" class="form-control " name="product_name" required/>
-                </div>
-            </div>
-            <div class="col-sm-6">
-            <div class="form-group"> 
-            <label for="item">Category:</label>
-              <input type="text" class="form-control " name="category" required/>
                 </div>
             </div>
             <div class="col-sm-6">
@@ -48,7 +42,7 @@
         </div>
         <div class="col-sm-6">
                 <div class="form-group">
-              <label for="price">Selling Price:</label>
+              <label for="price">Price:</label>
               <input type="text" class="form-control" name="price" required/>
           </div>
         </div>
@@ -60,20 +54,8 @@
         </div>
         <div class="col-sm-6">
                 <div class="form-group">
-              <label for="unit">Unit:</label>
-              <input type="text" class="form-control" name="unit" required/>
-          </div>
-        </div>
-        <div class="col-sm-6">
-                <div class="form-group">
               <label for="quantity">Quantity:</label>
               <input type="text" class="form-control" name="quantity" required/>
-          </div>
-        </div>
-        <div class="col-sm-6">
-                <div class="form-group">
-              <label for="reorder">Reorder Level:</label>
-              <input type="text" class="form-control" name="reorder" required/>
           </div>
         </div>
 </div>

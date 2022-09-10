@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Purchase;
-use DB;
+use App\Models\Product;
 
-class PurchaseController extends Controller
+class ItemController extends Controller
 {
      /**
      * Create a new controller instance.
@@ -17,6 +16,7 @@ class PurchaseController extends Controller
     {
         $this->middleware('auth');
     }
+
     
     /**
      * Display a listing of the resource.
@@ -25,12 +25,10 @@ class PurchaseController extends Controller
      */
     public function index()
     {
-       
-        $purchases = DB::table('products')
-        ->select('products.product_name', 'products.sku','products.description', 'products.buying_price', 'purchases.quantity','purchases.date')
-        ->join('purchases', 'products.id', '=', 'purchases.products_id')
-        ->get();
-          return view('purchases.index', compact('purchases'));
+        $products = Product::latest()->paginate(5);
+    
+        return view('items.index',compact('products'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -40,9 +38,7 @@ class PurchaseController extends Controller
      */
     public function create()
     {
-        $qty=Product::all();
-        dd($qty);
-        
+        return view('items.create');
     }
 
     /**
@@ -73,9 +69,9 @@ class PurchaseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-       
+        return view('items.edit',compact('product'));
     }
 
     /**
@@ -85,9 +81,24 @@ class PurchaseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Product $product)
     {
-        //
+        $request->validate([
+            'product_name' => 'required',
+            'sku' => 'required',
+            'description' => 'required',
+            'buying_price' => 'required',
+            'price' => 'required',
+            'unit'=>'required',
+            'quantity' => 'required', 
+            'manuf_date' => '',
+            'exp_date' => '', 
+        ]);
+    
+        $product->update($request->all());
+    
+        return redirect()->route('items.index')
+                        ->with('success','Product updated successfully');
     }
 
     /**

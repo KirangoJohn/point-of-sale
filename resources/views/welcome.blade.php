@@ -20,28 +20,37 @@
             }
         </style>
     </head>
-    <body class="antialiased">
-        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
+    <body >
+        <div>
+        @extends('layout')
             @if (Route::has('login'))
-                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+                <!--div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     @auth
                         <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
                     @else
                         <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
-                        @endif
+                    @endauth
+                </div-->
+            @endif
+            <div class="text-center">
+            <hr>
+            <img src="{{ asset('/public/images/logo111.png') }}">
+                <h5>Zinofit Technologies</h5>
+                <p >With specialize in providing business solutions for SMEs through technology</p>
+                <h4>0724381736</h4>
+                <p>info@zinofit.com</p>
+                
+                @if (Route::has('login'))
+                <div class="card">
+                <div class="card-body">
+                    
+                    @auth
+                        <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
+                    @else
+                        <a href="{{ route('login') }}" class="btn btn-info btn-lg" role="button">Log in</a>
                     @endauth
                 </div>
             @endif
-            <div class="card text-center">
-            <div class="card-header">
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">Zinofit Technologies</h5>
-                <p class="card-text">With specialize in providing business solutions for SMEs through technology</p>
-                <a href="#" class="btn btn-primary">Learn More</a>
             </div>
             </div>
 

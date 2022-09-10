@@ -14,6 +14,7 @@
             <div class="col-sm-6">
             <div class="form-group"> 
             <label for="item">Item Name:</label>
+            <input type="text" class="form-control " name="products_id"  value="{{ $stocks->id }}" hidden/>
               <input type="text" class="form-control " name="name"  value="{{ $stocks->product_name }}" disabled/>
                 </div>
             </div>
@@ -29,16 +30,11 @@
               <input type="text" class="form-control" name="description" value="{{ $stocks->description }}" disabled/>
           </div>
         </div>
+        
         <div class="col-sm-6">
                 <div class="form-group">
-              <label for="manuf_date">Manufacture Date:</label>
-              <input type="date" class="form-control" name="manuf_date" value="{{ $stocks->manuf_date }}"/>
-          </div>
-        </div>
-        <div class="col-sm-6">
-                <div class="form-group">
-              <label for="exp_date">Exp Date:</label>
-              <input type="date" class="form-control" name="exp_date" value="{{ $stocks->exp_date }}"/>
+              <label for="exp_date">Purchase Date:</label>
+              <input type="date" class="form-control" name="date" value="{{ $stocks->date }}" required/>
           </div>
         </div>
         <div class="col-sm-6">
@@ -53,6 +49,7 @@
               <input type="text" class="form-control" name="quantity" value="{{ $stocks->quantity }}" required/>
           </div>
         </div>
+        
 </div>
         <button type="submit" class="btn btn-primary">Update</button>
 

@@ -4,8 +4,11 @@
 @endsection
 @section('content')
     <div class="container">
-        <h1>POS</h1>
-
+    <h1>POS</h1>
+        <hr>
+             
+    <a href="{{url('/home')}}" ><i class="fa fa-home" style="font-size:36px"></i></a>
+                    
         <div class="row">
             <div class="col-sm-8">
                 <div class="row">
@@ -26,9 +29,7 @@
                                 <td>{{ $product->price }}</td>
 
                                 <td>
-                                    <a href="{{ route('add.to.cart', $product->id) }}"
-                                       class="btn btn-primary btn-sm btn-block text-center" role="button">Add to
-                                        cart</a>
+                                    <a href="{{ route('add.to.cart', $product->id) }}"><i class="fa fa-shopping-cart" style="font-size:24px"></i></a>
                                 </td>
                             </tr>
                         @endforeach
@@ -40,7 +41,8 @@
 
             <!------ CART------->
             <div class="col-sm-4">
-               
+                    
+
                 <table id="cart" class="table table-hover table-condensed">
                     <thead>
                     <tr>
@@ -104,7 +106,7 @@
                     <tr>
                         <td colspan="5" class="text-right">
 
-                            <button class="btn btn-primary">Checkout</button>
+                            <button class="btn btn-info">Checkout</button>
                         </td>
                     </tr>
                     </form>
