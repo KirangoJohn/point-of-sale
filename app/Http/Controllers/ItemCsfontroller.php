@@ -7,7 +7,7 @@ use App\Models\Product;
 
 class ItemController extends Controller
 {
-    /**
+     /**
      * Create a new controller instance.
      *
      * @return void
@@ -16,6 +16,8 @@ class ItemController extends Controller
     {
         $this->middleware('auth');
     }
+
+    
     /**
      * Display a listing of the resource.
      *
@@ -23,9 +25,10 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = Product::all();
-        
-        return view('items.index',compact('items'));
+        $products = Product::latest()->paginate(5);
+    
+        return view('items.index',compact('products'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -46,23 +49,7 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'product_name' => 'required|max:255',
-            'category' => 'required',
-            'sku' => 'required',
-            'description' => 'required',
-            'photo' => '',
-            'manuf_date' => '',
-            'exp_date' => '',
-            'buying_price' => 'required',
-            'price' => 'required',
-            'unit' => 'required',
-            'quantity' => 'required',
-            'reorder' => 'required',
-        ]);
-        $show = Product::create($validatedData);
-   
-        return redirect('/items')->with('success', 'Data is successfully saved');
+        //
     }
 
     /**
@@ -84,8 +71,8 @@ class ItemController extends Controller
      */
     public function edit($id)
     {
-        $products = Product::findOrFail($id);
-        return view('items.edit', compact('products'));
+        $product = Product::findOrFail($id);
+        return view('items.edit',compact('product'));
     }
 
     /**
@@ -97,22 +84,14 @@ class ItemController extends Controller
      */
     public function update(Request $request, $id)
     {
+       
         $validatedData = $request->validate([
-            'product_name' => 'required|max:255',
-            'category' => 'required',
-            'sku' => 'required',
-            'description' => 'required',
-            'photo' => '',
-            'manuf_date' => '',
-            'exp_date' => '',
-            'buying_price' => 'required',
-            'price' => 'required',
-            'unit' => 'required',
-            'quantity' => 'required',
-            'reorder' => 'required',
+            'Product_name' => 'required|max:255',
+            'price' => 'required'
         ]);
         Product::whereId($id)->update($validatedData);
-        return redirect('/items')->with('success', 'Data is successfully updated');
+        return redirect()->route('items.index')
+                        ->with('success','Product updated successfully');
     }
 
     /**
@@ -123,8 +102,6 @@ class ItemController extends Controller
      */
     public function destroy($id)
     {
-        $products = Product::findOrFail($id);
-        $products->delete();
-        return redirect('/items')->with('success', 'Data is successfully deleted');
+        //
     }
 }

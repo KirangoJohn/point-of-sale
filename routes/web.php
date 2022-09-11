@@ -32,11 +32,12 @@ Route::patch('update-cart', [ProductsController::class, 'update'])->name('update
 Route::delete('remove-from-cart', [ProductsController::class, 'remove'])->name('remove.from.cart');
 Route::post('/order', [ProductsController::class, 'confirmorder']);
 
-Route::group(['middleware' => 'prevent-back-history'], function () {
+
 Route::resource('stocks', 'StockController');
 Route::resource('items', 'ItemController');
 Route::resource('salesreports', 'SalesReportController');
-Route::resource('purchases', 'PurchaseController');});
+Route::resource('purchases', 'PurchaseController');
+///Route::resource('tests', 'TestController');
 
 
 //Route::post('/', [StockController::class, 'stocks'])->name('stocks/create'); 

@@ -1,55 +1,68 @@
-
-@extends('layout') 
+@extends('layout')
 @section('content')
 @include('navbar')
-
-<div class="container-fluid">
+<style>
+  .uper {
+    margin-top: 40px;
+  }
+</style>
+<div class="container">
 <h1>Products List</h1>
-<div><a class="btn btn-primary btn-lg float-right" href="{{url('stocks/create')}}" role="button">Add New Products</a></div>
+<div><a class="btn btn-primary btn-lg float-right" href="{{url('items/create')}}" role="button">Add New Products</a></div>
 <hr>
-
-@if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
-    @endif
-
-        <div class="card card-warning">
+<div class="uper">
+  @if(session()->get('success'))
+    <div class="alert alert-success">
+      {{ session()->get('success') }}  
+    </div><br />
+  @endif
+  <div class="card card-warning">
         <div class="card-header">
         <h3 class="card-title">Items</h3>
 </div>
 <div class="card-body">
-    <table class="table table-bordered">
+  <table class="table table-striped">
+    <thead>
         <tr>
-            <th>No</th>
-            <th>Item</th>
-            <th>Category</th>
-            <th>Description</th>
-            <th>SKU</th>
-            <th>Unit</th>
-            <th>Manf Date</th>
-            <th>Expiry Date</th>
-            <th></th>
+          <td>SKU</td>
+          <td>Product Name</td>
+          <td>Category</td>
+          <td>Description</td>
+          <td> Manuf Date</td>
+          <td>Exp Date</td>
+          <td> Buying Price</td>
+          <td>Selling price</td>
+          <td>Quantity</td>
+          <td> Unit</td>
+          <td> Reorder Level</td>
+          <td colspan="2">Action</td>
         </tr>
+    </thead>
+    <tbody>
+        @foreach($items as $test)
         <tr>
-        @foreach($products as $product)
-             <td>{{ $loop->index + 1 }}</td>
-            <td>{{ $product->product_name }}</td>
-            <td>{{ $product->category }}</td>
-            <td>{{ $product->description }}</td>
-            <td>{{ $product->sku }}</td>
-            <td>{{ $product->manuf_date }}</td>
-            <td>{{ $product->exp_date }}</td>
-            <td> <form action="#" method="POST">
-             <a class="btn btn-primary" href="{{ route('items.edit',$product->id)}}">Edit</a>
-                @csrf
-                @method('DELETE')
-            <button type="submit" class="btn btn-danger">Delete</button>
-            </form></td>
+            <td>{{$test->sku}}</td>
+            <td>{{$test->product_name}}</td>
+            <td>{{$test->category}}</td>
+            <td>{{$test->description}}</td>
+            <td>{{$test->manuf_date}}</td>
+            <td>{{$test->exp_date}}</td>
+            <td>{{$test->buying_price}}</td>
+            <td>{{$test->price}}</td>
+            <td>{{$test->quantity}}</td>
+            <td>{{$test->unit}}</td>
+            <td>{{$test->reorder}}</td>
+            <td><a href="{{ route('items.edit', $test->id)}}" class="btn btn-primary">Edit</a></td>
             <td>
-                                </td>
+                <form action="{{ route('items.destroy', $test->id)}}" method="post">
+                  @csrf
+                  @method('DELETE')
+                  <button class="btn btn-danger" type="submit">Delete</button>
+                </form>
+            </td>
         </tr>
         @endforeach
- 
+    </tbody>
+  </table>
+<div>
 @endsection
-
