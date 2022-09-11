@@ -49,11 +49,9 @@
                         </tr>
                         @foreach ($products as $product)
                             <tr>
-
                                 <td>{{ $product->product_name }}</td>
                                 <td>{{ $product->sku }}</td>
                                 <td>{{ $product->price }}</td>
-
                                 <td>
                                     <a class="btn btn-primary" href="{{ route('add.to.cart', $product->id) }}">Shop</a>
                                 </td>
@@ -67,8 +65,10 @@
 
             <!------ CART------->
             <div class="col-sm-4">
-
-
+            <form action="{{url('/cancelorder')}}" method="POST">
+            @csrf
+            <button class="btn btn-danger float-right bg-sm ">Cancel Sale</button>
+        </form>
                 <table id="cart" class="table table-hover table-condensed">
                     <thead>
                     <tr>
@@ -81,7 +81,6 @@
                     </tr>
                     </thead>
                     <tbody>
-
                     @php $total = 0 @endphp
                     @if(session('cart'))
                         @foreach(session('cart') as $id => $details)
@@ -91,10 +90,9 @@
                                 @csrf
                                 <tr data-id="{{ $id }}">
                                     <td data-th="Product">
-                                        <input type="text" name="productname[]" value=" {{ $details['product_name'] }}"
-                                               hidden=""/>
+                                    <input type="text" name="productsid[]" value=" {{ $details['id'] }}" hidden/>
+                                        <input type="text" name="productname[]" value=" {{ $details['product_name'] }}" hidden=""/>
                                         {{ $details['product_name'] }}
-
                                     </td>
                                     <td data-th="SKU">
                                         <input type="text" name="productsku[]" value="{{ $details['sku'] }}" hidden=""/>
@@ -131,11 +129,12 @@
                     </tr>
                     <tr>
                         <td colspan="5" class="text-right">
+                        <button class="btn btn-info">Checkout</button>
 
-                            <button class="btn btn-info">Checkout</button>
                         </td>
                     </tr>
                     </form>
+
                     </tfoot>
                 </table>
             </div>
@@ -187,6 +186,7 @@
                 });
             }
         });
+
 
         $(document).ready(() => {
             if('{{session()->has('userOrder')}}') {

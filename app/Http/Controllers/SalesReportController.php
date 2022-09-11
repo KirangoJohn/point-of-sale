@@ -16,9 +16,9 @@ class SalesReportController extends Controller
     public function index()
     {
         $sales = DB::table('products')
-          ->select('products.product_name', 'products.sku','products.price', \DB::raw("SUM(sales.quantity) as quantity"), \DB::raw("SUM(sales.quantity*products.price) as subtotal") )
+          ->select('products_id','products.product_name', 'products.sku','products.price','sales.created_at', \DB::raw("SUM(sales.quantity) as quantity"), \DB::raw("SUM(sales.quantity*products.price) as subtotal") )
           ->join('sales', 'sales.sku', '=', 'products.sku')
-          ->groupBy('sales.sku')
+          ->groupBy('sales.products_id')
           ->get();
 
           $totals = DB::table('products')

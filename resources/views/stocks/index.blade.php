@@ -3,14 +3,15 @@
 @include('navbar')
 
 <div class="container-fluid">
-<h1>Item List</h1>
-<div><a class="btn btn-primary btn-lg float-right" href="{{url('stocks/create')}}" role="button">Add New Products</a></div>
+<h1>Add new Stock / Restock</h1>
+<div></div>
 <hr>
 
 
         <div class="card card-warning">
         <div class="card-header">
-        <h3 class="card-title">Stock</h3>
+        <h3 class="card-title">
+        <a class="btn btn-primary btn-sm float-right" href="{{url('stocks/create')}}" role="button">Add New Products</a>
 </div>
 <div class="card-body">
     <table class="table table-bordered">
@@ -33,9 +34,8 @@
             <td>{{ $product->quantity }}</td>
             <td>{{ $product->manuf_date }}</td>
             <td>{{ $product->exp_date }}</td>
-            <td><a href="{{ route('stocks.edit', $product->id)}}" class="btn btn-primary">Update Stock</a></td>
-            <td>
-                                </td>
+            <td><a href="{{ route('stocks.edit', $product->id)}}" class="btn btn-primary btn-sm">Update Stock</a></td>
+           
         </tr>
         @endforeach
   @else

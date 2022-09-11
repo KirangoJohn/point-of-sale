@@ -6,7 +6,7 @@
 
 <div class="container-fluid">
 <h1>Purchases Report</h1>
-<div><a class="btn btn-primary btn-lg float-right" href="{{url('/stocks')}}" role="button">Back to Stock</a></div>
+
 <hr>
 
 @if ($message = Session::get('success'))
@@ -17,7 +17,7 @@
 
         <div class="card card-warning">
         <div class="card-header">
-        <h3 class="card-title">Purchases</h3>
+        <class="card-title"><a class="btn btn-primary btn-sm float-right" href="{{url('/stocks')}}" role="button">Back to Stock</a>
 </div>
 <div class="card-body">
     <table class="table table-bordered">
