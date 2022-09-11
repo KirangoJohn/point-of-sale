@@ -58,7 +58,7 @@
 
             <!------ CART------->
             <div class="col-sm-4">
-            <form action="{{url('cancelorder')}}" method="POST">
+            <form action="{{url('/cancelorder')}}" method="POST">
             @csrf
             <button class="btn btn-danger float-right bg-sm ">Cancel Sale</button>
         </form>
