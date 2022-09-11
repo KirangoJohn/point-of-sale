@@ -18,7 +18,8 @@
                     <th>SKU</th>
                     <th>Selling Price</th>
                     <th>Quantity</th>
-                    <th>Subtotal</th>
+                    <th>Amount</th>
+                    <th>Date</th>
                    
 </thead>
 <tbody>
@@ -29,6 +30,7 @@
                           <td>{{ $item->price }}</td>
                           <td>{{ $item->quantity }}</td>
                           <td>{{ $item->subtotal }}</td>
+                          <td>{{ $item->created_at }}</td>
                                                   
 </tr>
 @endforeach  

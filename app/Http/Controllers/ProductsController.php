@@ -50,6 +50,7 @@ class ProductsController extends Controller
             $cart[$id] = [
                 "product_name" => $product->product_name,
                 "quantity" => 1,
+                "id" => $product->id,
                 "sku" => $product->sku,
                 "price" => $product->price,
                 "image" => $product->image
@@ -71,7 +72,7 @@ class ProductsController extends Controller
 
         foreach($request->productname as $key=>$productname){
             $sales=new Sale;
-
+            $sales->products_id=$request->productsid[$key];
             $sales->sku=$request->productsku[$key];
             $sales->quantity=$request->quantity[$key];
             $sales->user_id=$user;
@@ -113,7 +114,11 @@ class ProductsController extends Controller
         // dd($orders);
     }
 
-
+    public function cancelorder(Request $request)
+    {
+        session()->forget('cart');
+        return redirect('/pos');
+    }
 
 
 

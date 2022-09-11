@@ -8,7 +8,7 @@
 </style>
 <div class="container">
 <h1>Products List</h1>
-<div><a class="btn btn-primary btn-lg float-right" href="{{url('items/create')}}" role="button">Add New Products</a></div>
+
 <hr>
 <div class="uper">
   @if(session()->get('success'))
@@ -18,24 +18,25 @@
   @endif
   <div class="card card-warning">
         <div class="card-header">
-        <h3 class="card-title">Items</h3>
+        <class="card-title">
+        <a class="btn btn-primary btn-sm float-right" href="{{url('items/create')}}" role="button">Add New Products</a>
 </div>
 <div class="card-body">
   <table class="table table-striped">
     <thead>
         <tr>
-          <td>SKU</td>
-          <td>Product Name</td>
-          <td>Category</td>
-          <td>Description</td>
-          <td> Manuf Date</td>
-          <td>Exp Date</td>
-          <td> Buying Price</td>
-          <td>Selling price</td>
-          <td>Quantity</td>
-          <td> Unit</td>
-          <td> Reorder Level</td>
-          <td colspan="2">Action</td>
+          <th>SKU</th>
+          <th>Product Name</th>
+          <th>Category</th>
+          <th>Description</th>
+          <th> Manuf Date</th>
+          <th>Exp Date</th>
+          <th> Buying Price</th>
+          <th>Selling price</th>
+          <th>Quantity</th>
+          <th> Unit</th>
+          <th> Reorder Level</th>
+          <th colspan="2">Action</th>
         </tr>
     </thead>
     <tbody>

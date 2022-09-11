@@ -34,7 +34,7 @@
 }
     hr{
         margin-top: 10px;
-        margin-top: 100px;
+        
     }
   
       .bd-placeholder-img {

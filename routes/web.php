@@ -31,6 +31,7 @@ Route::get('add-to-cart/{id}', [ProductsController::class, 'addToCart'])->name('
 Route::patch('update-cart', [ProductsController::class, 'update'])->name('update.cart');
 Route::delete('remove-from-cart', [ProductsController::class, 'remove'])->name('remove.from.cart');
 Route::post('/order', [ProductsController::class, 'confirmorder']);
+Route::post('/cancelorder', [ProductsController::class, 'cancelorder']);
 
 
 Route::resource('stocks', 'StockController');

@@ -4,9 +4,9 @@
 
 <div class="container">
 <h1>Add new Products</h1>
-<div><a class="btn btn-primary btn-lg float-right" href="{{url('/items')}}" role="button">View Products</a></div>
+<div></div>
 <hr>
-       
+<a class="btn btn-primary btn-sm float-right" href="{{url('/items')}}" role="button">View Products</a>
 <form method="post" action="{{ route('stocks.store') }}">
 @csrf  
     <div class="row">

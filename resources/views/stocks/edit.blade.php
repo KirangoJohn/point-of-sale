@@ -4,9 +4,9 @@
 
 <div class="container">
 <h1>Add Purchases</h1>
-<div><a class="btn btn-primary btn-lg float-right" href="{{url('/stocks')}}" role="button">View Stock</a></div>
+
 <hr>
-       
+<a class="btn btn-primary btn-sm float-right" href="{{url('/stocks')}}" role="button">View Stock</a>    
 <form method="post" action="{{ route('stocks.update', $stocks->id ) }}">
 @csrf
               @method('PATCH') 
@@ -46,7 +46,7 @@
         <div class="col-sm-6">
                 <div class="form-group">
               <label for="quantity">Quantity:</label>
-              <input type="text" class="form-control" name="quantity" value="{{ $stocks->quantity }}" required/>
+              <input type="text" class="form-control" name="quantity" required/>
           </div>
         </div>
         
