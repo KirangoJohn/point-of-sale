@@ -14,7 +14,7 @@
                         @if($userOrder->company_phone_number != '')
                         <p>Tel: {{$userOrder->company_phone_number ?? ''}}</p>
                         @endif
-                        <h3 class="fw-bold text-uppercase">Cash Sale</h3>
+                        <h3 class="fw-bold text-uppercase">{{$userOrder->receipt_title}}</h3>
                         <p>Date: {{date('h:ia D d F Y',strtotime(now()))}}</p>
                     </section>
                     <section class="row mx-auto">
@@ -45,6 +45,14 @@
                                 <td></td>
                                 <td></td>
                                 <td><h5 class="text-uppercase fw-bold">{{number_format($userOrder->sales->sum('total_price'), 2, '.', '')}}</h5></td>
+                            </tr>
+                            <tr>
+                                <td><h5 class="text-uppercase fw-bold">VAT &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        :</h5>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td><h5 class="text-uppercase fw-bold">{{number_format(0, 2, '.', '')}}</h5></td>
                             </tr>
                             <tr>
                                 <td><h5 class="text-uppercase fw-bold">Cash Paid &nbsp;&nbsp;&nbsp; :</h5></td>
