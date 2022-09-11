@@ -6,32 +6,39 @@
     <div class="container">
     <h1>POS</h1>
         <hr>
-             
+
     <a href="{{url('/home')}}" ><i class="fa fa-home" style="font-size:36px"></i></a>
-                    
+
         <div class="row">
             <div class="col-sm-8">
                 <div class="row">
-                <div class="row">
-                    <div class="col-sm-5">
                     <form action="{{ route('products.index') }}" method="GET">
-                    <input class="form-control" name="search" type="text" placeholder="Search Items">
-                    </div>
-                    <div class="col-sm-2">
-                    <button type="button" class="btn btn-primary" type="submit">Search</button>
-                    </div>
-                    </form>  
-                    <div class="col-sm-3"> 
-                    <select class="form-control" id="exampleSelect">
-                    <option>Retail</option>
-                    <option>Wholesale</option>
-                    </select>
-                </div>
-                <div class="col-sm-2">
-                    <button type="button" class="btn btn-primary">Select</button>
-                    </div>
-                    
-                </div>
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <input class="form-control" value="{{$_GET['search'] ?? ''}}" name="search" type="text"
+                                       placeholder="Search Items">
+                            </div>
+                            <div class="col-sm-2">
+                                <button class="btn btn-primary" type="submit">Search</button>
+                            </div>
+                            <div class="col-sm-3">
+                                <select class="form-control" name="type" id="exampleSelect">
+                                    <option
+                                        value="retail" {{(isset($_GET['type'])&&$_GET['type']=='retail') || !isset($_GET['type'])?'selected':''}}>
+                                        Retail
+                                    </option>
+                                    <option
+                                        value="wholesale" {{isset($_GET['type'])&&$_GET['type']=='wholesale'?'selected':''}}>
+                                        Wholesale
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <button type="submit" class="btn btn-primary">Select</button>
+                            </div>
+
+                        </div>
+                    </form>
                     <table class="table">
                         <tr>
 
@@ -123,11 +130,11 @@
                     <tr>
                         <td colspan="5" class="text-right">
                         <button class="btn btn-info">Checkout</button>
-                            
+
                         </td>
                     </tr>
                     </form>
-                   
+
                     </tfoot>
                 </table>
             </div>
@@ -179,7 +186,7 @@
                 });
             }
         });
-        
+
 
         $(document).ready(() => {
             if('{{session()->has('userOrder')}}') {

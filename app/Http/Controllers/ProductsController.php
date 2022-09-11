@@ -21,17 +21,34 @@ class ProductsController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index(Request $request)
     {
         //$products = Product::all();
         //return view('products', compact('products'));
-        $search = $request->get('search');
-        $products = DB::table('products')
-          ->select('id','product_name','sku','description','price')
-          ->where('sku', 'LIKE', "%{$search}%")
-          ->get();
-          return view('pos.products', compact('products','search'));
+        $search = $request->get('search',null);
+        $productType = $request->get('type','retail');
+        $sessionProductType = session('productType','retail');
+
+        if($sessionProductType != $productType){
+            session()->forget('cart');
+        }
+
+        $priceColumn = 'price';
+        if($productType == 'wholesale'){
+            $priceColumn = 'wholesale_price as price';
+            session()->put('productType','wholesale');
+        }else{
+            session()->put('productType','retail');
+        }
+
+        $products = Product::select('id', 'product_name', 'sku', 'description', $priceColumn)
+            ->when($search,function ($query) use ($search){
+                $query->where('sku', 'LIKE', "%{$search}%")
+                    ->orWhere('product_name', 'LIKE', "%{$search}%");
+            })
+            ->get();
+        return view('pos.products', compact('products', 'search'));
     }
 
     public function cart()
@@ -44,6 +61,12 @@ class ProductsController extends Controller
 
         $cart = session()->get('cart', []);
 
+        $productType = session('productType','retail');
+        $priceColumn = 'price';
+        if($productType == 'wholesale'){
+            $priceColumn = 'wholesale_price';
+        }
+
         if(isset($cart[$id])) {
             $cart[$id]['quantity']++;
         } else {
@@ -52,7 +75,7 @@ class ProductsController extends Controller
                 "quantity" => 1,
                 "id" => $product->id,
                 "sku" => $product->sku,
-                "price" => $product->price,
+                "price" => $product->$priceColumn,
                 "image" => $product->image
             ];
         }
@@ -103,20 +126,31 @@ class ProductsController extends Controller
             ->with('sales', 'sales.product', 'payment')
             ->first();
 
-        $userOrder->sales->map(function ($sale){
-            $sale->total_price += $sale->product->price * $sale->quantity;
+        $productType = session('productType','retail');
+        $priceColumn = 'price';
+        $userOrder->receipt_title = 'Cash Sale';
+        if($productType == 'wholesale'){
+            $priceColumn = 'wholesale_price';
+            $userOrder->receipt_title = 'Invoice';
+        }
+
+        $userOrder->sales->map(function ($sale) use ($priceColumn){
+            $sale->total_price += $sale->product->$priceColumn * $sale->quantity;
+            $sale->product->price = $sale->product->$priceColumn;
         });
 
         //dd($request->all());
         session()->flash('userOrder', $userOrder);
         session()->forget('cart');
-        return redirect('/pos');
+        session()->forget('productType');
+        return redirect()->back();
         // dd($orders);
     }
 
     public function cancelorder(Request $request)
     {
         session()->forget('cart');
+        session()->forget('productType');
         return redirect('/pos');
     }
 
