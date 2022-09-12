@@ -13,19 +13,29 @@ class SalesReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->get('search');
+
         $sales = DB::table('products')
-          ->select('products_id','products.product_name', 'products.sku','products.price','sales.created_at', \DB::raw("SUM(sales.quantity) as quantity"), \DB::raw("SUM(sales.quantity*products.price) as subtotal") )
+          ->select('products_id','products.product_name', 'products.sku','products.price','sales.created_at', 'sales.quantity as quantity',\DB::raw('sales.quantity*products.price as subtotal'))
           ->join('sales', 'sales.sku', '=', 'products.sku')
-          ->groupBy('sales.products_id')
+          ->where('products.product_name', 'LIKE', "%{$search}%")
           ->get();
 
           $totals = DB::table('products')
           ->select('products.price',\DB::raw("SUM(sales.quantity*products.price) as total") )
           ->join('sales', 'sales.sku', '=', 'products.sku')
+          ->where('products.product_name', 'LIKE', "%{$search}%")
           ->get();
-        return view('salesreports.index',compact('sales', 'totals'));
+
+          $quantity = DB::table('products')
+          ->select('products.price',\DB::raw("SUM(sales.quantity) as quantity") )
+          ->join('sales', 'sales.sku', '=', 'products.sku')
+          ->where('products.product_name', 'LIKE', "%{$search}%")
+          ->get();
+
+        return view('salesreports.index',compact('sales', 'totals', 'search','quantity'));
     }
 
     /**

@@ -23,12 +23,13 @@ class PurchaseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-       
+        $search = $request->get('search');
         $purchases = DB::table('products')
         ->select('products.product_name', 'products.sku','products.description', 'products.buying_price', 'purchases.quantity','purchases.date')
         ->join('purchases', 'products.id', '=', 'purchases.products_id')
+        ->where('purchases.date', 'LIKE', "%{$search}%")
         ->get();
           return view('purchases.index', compact('purchases'));
     }

@@ -20,6 +20,19 @@
         <div class="card-header">
         <class="card-title">
         <a class="btn btn-primary btn-sm float-right" href="{{url('items/create')}}" role="button">Add New Products</a>
+        <div class="row">
+          <div class="col-sm-6">
+        <form action="{{ route('items.index') }}" method="GET">
+          <input type="text" class="form-control" placeholder="Search by name" name="search">
+          </div>
+          <div class="col-sm-6">
+          <button class="btn btn-primary" type="submit">Search</button>
+          
+          <form action="{{ route('items.index') }}">
+          <button class="btn btn-success" type="submit">Refresh</button>
+</form>
+</div>
+      </form>
 </div>
 <div class="card-body">
   <table class="table table-striped">
@@ -33,6 +46,7 @@
           <th>Exp Date</th>
           <th> Buying Price</th>
           <th>Selling price</th>
+          <th>Wholesale price</th>
           <th>Quantity</th>
           <th> Unit</th>
           <th> Reorder Level</th>
@@ -50,6 +64,7 @@
             <td>{{$test->exp_date}}</td>
             <td>{{$test->buying_price}}</td>
             <td>{{$test->price}}</td>
+            <td>{{$test->wholesale_price}}</td>
             <td>{{$test->quantity}}</td>
             <td>{{$test->unit}}</td>
             <td>{{$test->reorder}}</td>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use DB;
 
 class ItemController extends Controller
 {
@@ -21,10 +22,13 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $items = Product::all();
-        
+        $search = $request->get('search');
+
+        $items = DB::table('products')
+        ->where('product_name', 'LIKE', "%{$search}%")
+        ->get();
         return view('items.index',compact('items'));
     }
 
@@ -56,6 +60,7 @@ class ItemController extends Controller
             'exp_date' => '',
             'buying_price' => 'required',
             'price' => 'required',
+            'wholesale_price' => 'required',
             'unit' => 'required',
             'quantity' => 'required',
             'reorder' => 'required',
@@ -107,6 +112,7 @@ class ItemController extends Controller
             'exp_date' => '',
             'buying_price' => 'required',
             'price' => 'required',
+            'wholesale_price' => 'required',
             'unit' => 'required',
             'quantity' => 'required',
             'reorder' => 'required',

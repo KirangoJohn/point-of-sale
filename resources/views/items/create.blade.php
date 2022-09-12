@@ -66,8 +66,14 @@
 </div>
 <div class="col-sm-6">
             <div class="form-group">
-              <label for="price">Selling Price :</label>
+              <label for="price">Retail Price :</label>
               <input type="text" class="form-control" name="price"/>
+          </div>
+</div>
+<div class="col-sm-6">
+            <div class="form-group">
+              <label for="price">Wholesale Price :</label>
+              <input type="text" class="form-control" name="wholesale_price"/>
           </div>
 </div>
 <div class="col-sm-6">
