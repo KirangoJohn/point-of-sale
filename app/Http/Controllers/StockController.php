@@ -30,7 +30,7 @@ class StockController extends Controller
         $search = $request->get('search');
         $products = DB::table('products')
           ->select('id','product_name','sku','description','price', 'quantity', 'manuf_date', 'exp_date')
-          ->where('sku', 'LIKE', "%{$search}%")
+          ->where('product_name', 'LIKE', "%{$search}%")
           ->get();
           return view('stocks.index', compact('products'));
     }

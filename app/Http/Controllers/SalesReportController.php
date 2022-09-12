@@ -20,8 +20,9 @@ class SalesReportController extends Controller
         $sales = DB::table('products')
           ->select('products_id','products.product_name', 'products.sku','products.price','sales.created_at', 'sales.quantity as quantity',\DB::raw('sales.quantity*products.price as subtotal'))
           ->join('sales', 'sales.sku', '=', 'products.sku')
-          ->where('products.product_name', 'LIKE', "%{$search}%")
+          ->where('products.product_name', 'LIKE', "%{$search}%", 'AND', 'sales.created_at', 'LIKE', "%{$search}%")
           ->get();
+         
 
           $totals = DB::table('products')
           ->select('products.price',\DB::raw("SUM(sales.quantity*products.price) as total") )

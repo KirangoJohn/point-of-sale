@@ -17,17 +17,21 @@
         <div>
         <div>
         <a class="btn btn-primary btn-sm float-right" href="{{url('/stocks')}}" role="button">Back to Stock</a>
+        <div class="row">
         <div class="col-sm-4">
         <form action="{{ route('purchases.index') }}" method="GET">
     <!--input type="text" name="search" placeholder="Search" class="form-control"-->
     <input type="date" name="search" class="form-control" placeholder="yyyy-mm-dd" value="" min="1997-01-01" max="2030-12-31">
         </div>
-       
+        <div class="col-sm-4">
         <button class="btn btn-primary" type="submit">Search</button> 
         <form action="{{ route('purchases.index') }}">
             <button class="btn btn-success" type="submit">Referesh</button>
 </form>
+</div>
+<div class="col-sm-4">
         <button class="btn btn-success float-left" onclick="printDivContent()" />Print</button>
+</div>
 </div>
 </div>
 <div id="printContent">

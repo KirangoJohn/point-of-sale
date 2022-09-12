@@ -39,6 +39,7 @@
 
                         </div>
                     </form>
+                    <div class="d-grid gap-2 d-md-flex">
                     <table class="table">
                         <tr>
 
@@ -60,6 +61,7 @@
 
                     </table>
                 </div>
+            </div>
             </div>
 
 

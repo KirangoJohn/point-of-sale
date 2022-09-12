@@ -33,11 +33,14 @@ Route::delete('remove-from-cart', [ProductsController::class, 'remove'])->name('
 Route::post('/order', [ProductsController::class, 'confirmorder']);
 Route::post('/cancelorder', [ProductsController::class, 'cancelorder']);
 
+Route::post('company/edit/{id}','CompanyController@edit');
 
 Route::resource('stocks', 'StockController');
+Route::resource('stockReports', 'StockReportController');
 Route::resource('items', 'ItemController');
 Route::resource('salesreports', 'SalesReportController');
 Route::resource('purchases', 'PurchaseController');
+Route::resource('expReports', 'ExpReportContoller');
 ///Route::resource('tests', 'TestController');
 
 
@@ -53,7 +56,7 @@ Auth::routes();
 Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('logout',[AuthController::class, 'logout'])->name('logout');
-//Route::get('register',[AuthController::class, 'register'])->name('register');
+Route::get('register',[App\Http\Auth\RegisterController::class, 'register'])->name('register');
 
 Route::group(['middleware'=>'auth'], function () {
 	Route::get('permissions-all-users',['middleware'=>'check-permission:user|admin|superadmin','uses'=>'HomeController@allUsers']);

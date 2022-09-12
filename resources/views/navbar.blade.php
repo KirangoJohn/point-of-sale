@@ -14,15 +14,24 @@
     @if(checkPermission(['admin','superadmin']))
     <a class="nav-item nav-link" href="{{url('/stocks')}}">Stock in Store</a>
     @endif
+    
     @if(checkPermission(['admin','superadmin']))
-    <a class="nav-item nav-link" href="{{url('/purchases')}}">Purchases</a>
+    <div class="dropdown show">
+  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+   Reports
+  </a>
+
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <a class="dropdown-item" href="{{'salesreports'}}">Sales Reports</a>
+    <a class="dropdown-item" href="{{'/purchases'}}">Purchases Report</a>
+    <a class="dropdown-item" href="{{'/stockReports'}}">Stock Report</a>
+    <a class="dropdown-item" href="{{'/expReports'}}">Items Expiry Report</a>
+  
+  </div>
+</div>
     @endif
     @if(checkPermission(['admin','superadmin']))
-    <a class="nav-item nav-link" href="{{'salesreports'}}">Sales Reports</a>
-    </li>
-    @endif
-    @if(checkPermission(['admin','superadmin']))
-    <a class="nav-item nav-link" href="{{url('/company.create')}}">Company</a>
+    <a class="nav-item nav-link" href="{{url('/company')}}">Company</a>
     @endif
     
     
