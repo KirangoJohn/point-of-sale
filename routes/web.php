@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\PDFController;
+use App\Http\Controllers\CustomAuthController;
 
 
 
@@ -48,7 +49,8 @@ Route::resource('expReports', 'ExpReportContoller');
 Route::get('report/receipt', [ReceiptController::class, 'index'])->name('receipt');
 Route::get('generate-pdf', [PDFController::class, 'generatePDF']);
 
-
+Route::get('registration', [CustomAuthController::class, 'registration'])->name('register-user');
+Route::post('custom-registration', [CustomAuthController::class, 'customRegistration'])->name('register.custom'); 
 
 
 Auth::routes();

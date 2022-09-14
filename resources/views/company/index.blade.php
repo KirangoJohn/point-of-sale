@@ -27,7 +27,7 @@
         KRA Pin: {{$comp->kra_pin}}<br>
         VAT No: {{$comp->vat_no}}<br>
     </p><br>
-    <p><a href="company.edit/{{ $comp->id }}" class="btn btn-primary">Update Records</a></p><br>
+    <p><a href="#" class="btn btn-primary">Update Records</a></p><br>
 
   </div>
   @endforeach

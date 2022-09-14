@@ -31,10 +31,17 @@
 </div>
     @endif
     @if(checkPermission(['admin','superadmin']))
-    <a class="nav-item nav-link" href="{{url('/company')}}">Company</a>
-    @endif
-    
-    
+    <div class="dropdown show">
+  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+   Settings
+  </a>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <a class="dropdown-item" href="{{'/company'}}">Company</a>
+    <a class="dropdown-item" href="{{'registration'}}">Register users</a>
+  
+  </div>
+</div>
+@endif
     <ul class="navbar-nav ms-auto" style="float:right">
                         <!-- Authentication Links -->
                         @guest
