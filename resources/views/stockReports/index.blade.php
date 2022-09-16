@@ -3,6 +3,7 @@
 @include('navbar')
 <div class="container">
 <h1>Stock Report</h1>
+
 <hr>
 <button class="btn btn-success float-right" onclick="printDivContent()" />Print</button>
 </div>
@@ -18,16 +19,17 @@
 </form>
 </div>
 <div id="printContent">
+<div> 
     <table class="table table-bordered">  
 <thead>
 <tr>
                     <th>Item</th>
                     <th>SKU</th>
-                    <th>Selling Price</th>
-                    <th>Wholesale Price</th>
-                    <th>Quantity</th>
-                    <th>Total in Retail Value</th>
-                    <th>Total in Wholesale Value</th>
+                    <th style="text-align:right">Selling Price</th>
+                    <th style="text-align:right">Wholesale Price</th>
+                    <th style="text-align:right">Qty</th>
+                    <th style="text-align:right">Retail Value</th>
+                    <th style="text-align:right">Wholesale Value</th>
 
                    
 </thead>
@@ -36,11 +38,11 @@
 <tr>
                           <td>{{ $item->product_name }}</td>
                           <td>{{ $item->sku }}</td>
-                          <td>{{ $item->price }}</td>
-                          <td>{{ $item->wholesale_price }}</td>
-                          <td>{{ $item->quantity }}</td> 
-                          <td>{{ $item->price *$item->quantity}}</td>  
-                          <td>{{ $item->wholesale_price * $item->quantity }}</td>                           
+                          <td style="text-align:right">{{ $item->price }}</td>
+                          <td style="text-align:right">{{ $item->wholesale_price }}</td>
+                          <td style="text-align:right">{{ $item->quantity }}</td> 
+                          <td style="text-align:right">{{ $item->price *$item->quantity}}</td>  
+                          <td style="text-align:right">{{ $item->wholesale_price * $item->quantity }}</td>                           
 </tr>
 @endforeach  
 </table>
@@ -51,8 +53,10 @@ function printDivContent() {
  	var divElementContents = document.getElementById("printContent").innerHTML;
  	var windows = window.open('', '', '');
  	windows.document.write('<html>');
-     windows.document.write('<style> table { padding-top: 50px; margin-left: 50px; width: 70%; text-align: left; border-collapse: collapse; margin: 0 0 1em 0; caption-side: top; }</style>');
- 	windows.document.write('<body> <div class="container"> <table class="table"> <h1>Stock Report<br>');
+     windows.document.write('<style>');
+     windows.document.write('body { margin: 2em; color: black; font: 12pt Georgia, "Times New Roman", Times, serif;line-height: 1.3;}}');
+     windows.document.write('</style>');
+ 	windows.document.write('<body> <div class="container"><table class="table"> <h1>Stock Report</h1><br> <p> Printing Date: <?php echo date('Y-m-d');?></p> <hr>');
  	windows.document.write(divElementContents);
  	windows.document.write('</table></body></html>');
  	windows.document.close();

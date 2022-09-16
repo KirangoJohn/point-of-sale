@@ -11,7 +11,9 @@
         <div class="card card-warning">
         <div class="card-header">
         <h3 class="card-title">
-        <a class="btn btn-primary btn-sm float-right" href="{{url('stocks/create')}}" role="button">Add New Products</a>
+        @if(checkPermission(['admin','superadmin']))
+        <a class="btn btn-primary btn-sm float-right" href="{{url('items/create')}}" role="button">Add New Products</a>
+        @endif
         <div class="row">
           <div class="col-sm-6">
         <form action="{{ route('stocks.index') }}" method="GET">
@@ -34,9 +36,12 @@
             <th>Item</th>
             <th>SKU</th>
             <th>Quantity</th>
+            <th>Reorder</th>
             <th>Manf Date</th>
             <th>Expiry Date</th>
-            <th></th>
+            @if(checkPermission(['admin','superadmin']))
+            <th>Action</th>
+            @endif
         </tr>
         <tr>
         @if(count($products) > 0) 
@@ -44,12 +49,13 @@
              <td>{{ $loop->index + 1 }}</td>
             <td>{{ $product->product_name }}</td>
             <td>{{ $product->sku }}</td>
-           
             <td>{{ $product->quantity }}</td>
+            <td>{{ $product->reorder }}</td>
             <td>{{ $product->manuf_date }}</td>
             <td>{{ $product->exp_date }}</td>
+            @if(checkPermission(['admin','superadmin']))
             <td><a href="{{ route('stocks.edit', $product->id)}}" class="btn btn-primary btn-sm">Update Stock</a></td>
-           
+           @endif
         </tr>
         @endforeach
   @else

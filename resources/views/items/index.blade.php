@@ -19,7 +19,9 @@
   <div class="card card-warning">
         <div class="card-header">
         <class="card-title">
+        @if(checkPermission(['admin','superadmin']))
         <a class="btn btn-primary btn-sm float-right" href="{{url('items/create')}}" role="button">Add New Products</a>
+        @endif
         <div class="row">
           <div class="col-sm-6">
         <form action="{{ route('items.index') }}" method="GET">
@@ -44,13 +46,17 @@
           <th>Description</th>
           <th> Manuf Date</th>
           <th>Exp Date</th>
+          @if(checkPermission(['admin','superadmin']))
           <th> Buying Price</th>
+          @endif
           <th>Selling price</th>
           <th>Wholesale price</th>
           <th>Quantity</th>
           <th> Unit</th>
           <th> Reorder Level</th>
+          @if(checkPermission(['admin','superadmin']))
           <th colspan="2">Action</th>
+          @endif
         </tr>
     </thead>
     <tbody>
@@ -62,12 +68,15 @@
             <td>{{$test->description}}</td>
             <td>{{$test->manuf_date}}</td>
             <td>{{$test->exp_date}}</td>
+            @if(checkPermission(['admin','superadmin']))
             <td>{{$test->buying_price}}</td>
+            @endif
             <td>{{$test->price}}</td>
             <td>{{$test->wholesale_price}}</td>
             <td>{{$test->quantity}}</td>
             <td>{{$test->unit}}</td>
             <td>{{$test->reorder}}</td>
+            @if(checkPermission(['admin','superadmin']))
             <td><a href="{{ route('items.edit', $test->id)}}" class="btn btn-primary">Edit</a></td>
             <td>
                 <form action="{{ route('items.destroy', $test->id)}}" method="post">
@@ -76,6 +85,7 @@
                   <button class="btn btn-danger" type="submit">Delete</button>
                 </form>
             </td>
+            @endif
         </tr>
         @endforeach
     </tbody>

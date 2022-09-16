@@ -3,7 +3,6 @@
 @section('content')
 @include('navbar')
 
-
 <div class="container">
 <h1>Purchases Report</h1>
 <hr>
@@ -41,9 +40,9 @@
             <th>Item</th>
             <th>Description</th>
             <th>SKU</th>
-            <th>Quantity Bought</th>
-            <th>Buying_price</th>
-            <th>Purchase Date</th>
+            <th style="text-align:right">Qty Bought</th>
+            <th style="text-align:right">Buying_price</th>
+            <th style="text-align:right">Purchase Date</th>
         </tr>
         <tr>
         @foreach($purchases as $product)
@@ -51,9 +50,9 @@
             <td>{{ $product->product_name }}</td>
             <td>{{ $product->description }}</td>
             <td>{{ $product->sku }}</td>
-            <td>{{ $product->quantity }}</td>
-            <td>{{ $product->buying_price }}</td>
-            <td>{{ $product->date }}</td>
+            <td style="text-align:right">{{ $product->quantity }}</td>
+            <td style="text-align:right">{{ $product->buying_price }}</td>
+            <td style="text-align:right">{{ $product->date }}</td>
             
         </tr>
         @endforeach
@@ -63,8 +62,10 @@ function printDivContent() {
  	var divElementContents = document.getElementById("printContent").innerHTML;
  	var windows = window.open('', '', '');
  	windows.document.write('<html>');
-     windows.document.write('<style> table { padding-top: 50px; margin-left: 50px; width: 100%; text-align: left; border-collapse: collapse; margin: 0 0 1em 0; caption-side: top; }</style>');
- 	windows.document.write('<body> <div class="container"> <table class="table"> <h3>Purchases Report</h3><br>');
+     windows.document.write('<style>');
+     windows.document.write('body { margin: 2em; color: black; font: 12pt Georgia, "Times New Roman", Times, serif;line-height: 1.3;}}');
+     windows.document.write('</style>');
+ 	windows.document.write('<body> <div class="container"><table class="table"> <h1>Purchases Report</h1><br> <p> Printing Date: <?php echo date('Y-m-d');?></p> <hr>');
  	windows.document.write(divElementContents);
  	windows.document.write('</table></body></html>');
  	windows.document.close();

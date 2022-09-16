@@ -19,6 +19,7 @@ class StockReportController extends Controller
 
         $items = DB::table('products')
         ->where('product_name', 'LIKE', "%{$search}%")
+        ->where('price','>','0.00')
         ->get();
 
         $totals_buying = DB::table('products')

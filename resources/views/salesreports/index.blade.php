@@ -14,11 +14,21 @@
 <button class="btn btn-primary" type="submit">Search</button> 
 </div>
 <div class="col-sm-4">
+    <div class="row">
 <form action="{{ route('salesreports.index') }}" method="GET">
-<input type="date" name="search" class="form-control"></div>
+<div class="col-sm-1">From:</div>
+<div class="col-sm-5">
+<input type="date" name="fromdate" class="form-control" placeholder="From Date">
+</div>
+<div class="col-sm-1">To:</div>
+<div class="col-sm-5">
+<input type="date" name="todate" class="form-control">
+</div>
+</div>
+</div>
 <div class="col-sm-2">
 <button class="btn btn-primary" type="submit">Search</button>
-    <form action="{{ route('salesreports.index') }}">
+    
   <button class="btn btn-success" type="submit">Referesh</button>
 </div>
 </form>
@@ -26,11 +36,15 @@
 </div>
 <div class="container">
         <div id="printContent">@foreach ($totals as $total)
-        <h3 > TOTAL:   KSH    <strong> {{ $total->total }}</strong></h3>
+        <p> TOTAL:   KSH    <strong> {{ $total->total }}</strong></p>
         @endforeach
         @foreach ($quantity as $item)
-        <h3 > QUANTITY SOLD:    <strong> {{ $item->quantity }}</strong></h3>
+        <p> QUANTITY SOLD:    <strong> {{ $item->quantity }}</strong></p>
         @endforeach
+        @foreach ($profit as $prt)
+        <p> Total Profit:    <strong> {{ $prt->total_profit }}</strong></p>
+        @endforeach
+        
 <div>
     <table class="table table-bordered">  
 <thead>
@@ -40,6 +54,7 @@
                     <th>Selling Price</th>
                     <th>Quantity</th>
                     <th>Amount</th>
+                    <th>Profit</th>
                     <th>Date</th>
                    
 </thead>
@@ -51,6 +66,7 @@
                           <td>{{ $item->price }}</td>
                           <td>{{ $item->quantity }}</td>
                           <td>{{ $item->subtotal }}</td>
+                          <td>{{ $item->profit}}</td>
                           <td>{{ $item->created_at }}</td>
                                                   
 </tr>
@@ -63,8 +79,10 @@ function printDivContent() {
  	var divElementContents = document.getElementById("printContent").innerHTML;
  	var windows = window.open('', '', '');
  	windows.document.write('<html>');
-     windows.document.write('<style> table { padding-top: 50px; margin-left: 50px; width: 70%; text-align: left; border-collapse: collapse; margin: 0 0 1em 0; caption-side: top; }</style>');
- 	windows.document.write('<body> <div class="container"> <table class="table"> <h1>Sales Report<br>');
+     windows.document.write('<style>');
+     windows.document.write('body { margin: 2em; color: black; font: 12pt Georgia, "Times New Roman", Times, serif;line-height: 1.3;}}');
+     windows.document.write('</style>');
+ 	windows.document.write('<body> <div class="container"><table class="table"> <h1>Sales Report</h1><br> <p> Printing Date: <?php echo date('Y-m-d');?></p> <hr>');
  	windows.document.write(divElementContents);
  	windows.document.write('</table></body></html>');
  	windows.document.close();

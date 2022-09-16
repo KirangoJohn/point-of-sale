@@ -5,13 +5,13 @@
 </button>
 <div class="collapse navbar-collapse">
 <div class="navbar-nav">
-@if(checkPermission(['admin','superadmin']))
+@if(checkPermission(['admin','superadmin','user']))
 <a class="nav-item nav-link" href="{{url('/items')}}">Products</a>
 @endif
 @if(checkPermission(['user','admin','superadmin']))
     <a class="nav-item nav-link" href="{{url('/pos')}}">POS</a>
     @endif
-    @if(checkPermission(['admin','superadmin']))
+    @if(checkPermission(['admin','superadmin','user']))
     <a class="nav-item nav-link" href="{{url('/stocks')}}">Stock in Store</a>
     @endif
     
@@ -22,7 +22,9 @@
   </a>
 
   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+  @if(checkPermission(['superadmin']))
     <a class="dropdown-item" href="{{'salesreports'}}">Sales Reports</a>
+    @endif
     <a class="dropdown-item" href="{{'/purchases'}}">Purchases Report</a>
     <a class="dropdown-item" href="{{'/stockReports'}}">Stock Report</a>
     <a class="dropdown-item" href="{{'/expReports'}}">Items Expiry Report</a>
@@ -37,7 +39,9 @@
   </a>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
     <a class="dropdown-item" href="{{'/company'}}">Company</a>
+    @if(checkPermission(['superadmin']))
     <a class="dropdown-item" href="{{'registration'}}">Register users</a>
+     @endif
   
   </div>
 </div>
