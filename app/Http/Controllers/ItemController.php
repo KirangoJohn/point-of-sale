@@ -63,6 +63,7 @@ class ItemController extends Controller
             'wholesale_price' => 'required',
             'unit' => 'required',
             'quantity' => 'required',
+            'quantity_wholesale' => 'required',
             'reorder' => 'required',
         ]);
         $show = Product::create($validatedData);
@@ -115,6 +116,7 @@ class ItemController extends Controller
             'wholesale_price' => 'required',
             'unit' => 'required',
             'quantity' => 'required',
+            'quantity_wholesale' => 'required',
             'reorder' => 'required',
         ]);
         Product::whereId($id)->update($validatedData);

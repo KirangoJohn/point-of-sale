@@ -72,14 +72,20 @@
 </div>
 <div class="col-sm-6">
             <div class="form-group">
+              <label for="quantity">Retail Quantity :</label>
+              <input type="text" class="form-control" name="quantity"/>
+          </div>
+</div>
+<div class="col-sm-6">
+            <div class="form-group">
               <label for="price">Wholesale Price :</label>
               <input type="text" class="form-control" name="wholesale_price"/>
           </div>
 </div>
 <div class="col-sm-6">
             <div class="form-group">
-              <label for="quantity">Quantity :</label>
-              <input type="text" class="form-control" name="quantity"/>
+              <label for="quantity_wholesale">Wholesale Quantity :</label>
+              <input type="text" class="form-control" name="quantity_wholesale"/>
           </div>
 </div>
 <div class="col-sm-6">

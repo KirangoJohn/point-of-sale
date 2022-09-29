@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\CustomAuthController;
+use App\Http\Controllers\SalesReportController;
 
 
 
@@ -42,6 +43,8 @@ Route::resource('items', 'ItemController');
 Route::resource('salesreports', 'SalesReportController');
 Route::resource('purchases', 'PurchaseController');
 Route::resource('expReports', 'ExpReportContoller');
+
+Route::get('salesreports.bydate', [SalesReportController::class, 'bydate'])->name('bydate');
 ///Route::resource('tests', 'TestController');
 
 
