@@ -40,6 +40,8 @@ Route::post('company/edit/{id}','CompanyController@edit');
 Route::resource('stocks', 'StockController');
 Route::resource('stockReports', 'StockReportController');
 Route::resource('items', 'ItemController');
+Route::resource('wholesales', 'WholesaleController');
+Route::resource('retails', 'RetailController');
 Route::resource('salesreports', 'SalesReportController');
 Route::resource('purchases', 'PurchaseController');
 Route::resource('expReports', 'ExpReportContoller');

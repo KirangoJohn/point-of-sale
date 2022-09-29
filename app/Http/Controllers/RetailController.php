@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
 
 class RetailController extends Controller
 {
@@ -11,9 +12,15 @@ class RetailController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $search = $request->get('search');
+        $products = DB::table('products')
+          ->select('products.id','products.product_name', 'products.sku','products.category','products.description','products.manuf_date','products.exp_date','retails.selling_price','retails.quantity','retails.unit')
+          ->join('retails', 'retails.products_id', '=', 'products.id')
+          ->where('products.product_name', 'LIKE', "%{$search}%")
+          ->get();
+        return view('retails.index',compact('products','search'));
     }
 
     /**

@@ -3,17 +3,36 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+//use App\Models\Product;
+use App\Models\Wholesale;
+use DB;
 
 class WholesaleController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $search = $request->get('search');
+        $products = DB::table('products')
+          ->select('products.id','products.product_name', 'products.sku','products.category','products.description','products.manuf_date','products.exp_date','wholesales.selling_price','wholesales.quantity','wholesales.unit')
+          ->join('wholesales', 'wholesales.products_id', '=', 'products.id')
+          ->where('products.product_name', 'LIKE', "%{$search}%")
+          ->get();
+        return view('wholesales.index',compact('products','search'));
     }
 
     /**
@@ -23,7 +42,7 @@ class WholesaleController extends Controller
      */
     public function create()
     {
-        //
+         return view('wholesales.create');
     }
 
     /**
@@ -56,7 +75,8 @@ class WholesaleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $wholesales = Wholesale::findOrFail($id);
+        return view('wholesales.edit', compact('wholesales'));
     }
 
     /**
