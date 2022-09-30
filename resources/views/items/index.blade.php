@@ -46,13 +46,6 @@
           <th>Description</th>
           <th> Manuf Date</th>
           <th>Exp Date</th>
-          @if(checkPermission(['admin','superadmin']))
-          <th> Buying Price</th>
-          @endif
-          <th>Selling price</th>
-          <th>Wholesale price</th>
-          <th>Quantity</th>
-          <th> Unit</th>
           <th> Reorder Level</th>
           @if(checkPermission(['admin','superadmin']))
           <th colspan="2">Action</th>
@@ -67,14 +60,7 @@
             <td>{{$test->category}}</td>
             <td>{{$test->description}}</td>
             <td>{{$test->manuf_date}}</td>
-            <td>{{$test->exp_date}}</td>
-            @if(checkPermission(['admin','superadmin']))
-            <td>{{$test->buying_price}}</td>
-            @endif
-            <td>{{$test->price}}</td>
-            <td>{{$test->wholesale_price}}</td>
-            <td>{{$test->quantity}}</td>
-            <td>{{$test->unit}}</td>
+            <td>{{$test->exp_date}}</td>  
             <td>{{$test->reorder}}</td>
             @if(checkPermission(['admin','superadmin']))
             <td><a href="{{ route('items.edit', $test->id)}}" class="btn btn-primary">Edit</a></td>

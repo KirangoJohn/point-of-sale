@@ -58,12 +58,6 @@ class ItemController extends Controller
             'photo' => '',
             'manuf_date' => '',
             'exp_date' => '',
-            'buying_price' => 'required',
-            'price' => 'required',
-            'wholesale_price' => 'required',
-            'unit' => 'required',
-            'quantity' => 'required',
-            'quantity_wholesale' => 'required',
             'reorder' => 'required',
         ]);
         $show = Product::create($validatedData);
@@ -111,12 +105,6 @@ class ItemController extends Controller
             'photo' => '',
             'manuf_date' => '',
             'exp_date' => '',
-            'buying_price' => 'required',
-            'price' => 'required',
-            'wholesale_price' => 'required',
-            'unit' => 'required',
-            'quantity' => 'required',
-            'quantity_wholesale' => 'required',
             'reorder' => 'required',
         ]);
         Product::whereId($id)->update($validatedData);

@@ -5,9 +5,20 @@
 </button>
 <div class="collapse navbar-collapse">
 <div class="navbar-nav">
-@if(checkPermission(['admin','superadmin','user']))
-<a class="nav-item nav-link" href="{{url('/items')}}">Products</a>
-@endif
+
+@if(checkPermission(['admin','superadmin']))
+    <div class="dropdown show">
+  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+   Products
+  </a>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <a class="dropdown-item" href="{{'/retails'}}">Retail Products</a>
+    @if(checkPermission(['admin','superadmin']))
+    <a class="dropdown-item" href="{{'wholesales'}}">Wholesale Products</a>
+     @endif
+  </div>
+  @endif
+</div>
 @if(checkPermission(['user','admin','superadmin']))
     <a class="nav-item nav-link" href="{{url('/pos')}}">POS</a>
     @endif
@@ -20,7 +31,6 @@
   <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
    Reports
   </a>
-
   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
   @if(checkPermission(['superadmin']))
     <a class="dropdown-item" href="{{'salesreports'}}">Sales Reports</a>
@@ -28,7 +38,6 @@
     <a class="dropdown-item" href="{{'/purchases'}}">Purchases Report</a>
     <a class="dropdown-item" href="{{'/stockReports'}}">Stock Report</a>
     <a class="dropdown-item" href="{{'/expReports'}}">Items Expiry Report</a>
-  
   </div>
 </div>
     @endif
@@ -42,7 +51,6 @@
     @if(checkPermission(['superadmin']))
     <a class="dropdown-item" href="{{'registration'}}">Register users</a>
      @endif
-  
   </div>
 </div>
 @endif

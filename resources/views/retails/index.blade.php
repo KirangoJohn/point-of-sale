@@ -29,8 +29,8 @@
             <th>Unit</th>
             <th>Manf Date</th>
             <th>Expiry Date</th>
+            <th>Selling Price</th>
             <th>Quantity</th>
-            <th>Unit</th>
             <th>Action</th>
         </tr>
         <tr>
@@ -40,11 +40,11 @@
             <td>{{ $product->category }}</td>
             <td>{{ $product->description }}</td>
             <td>{{ $product->sku }}</td>
+            <td>{{ $product->unit }}</td>
             <td>{{ $product->manuf_date }}</td>
             <td>{{ $product->exp_date }}</td>
             <td>{{ $product->selling_price }}</td>
             <td>{{ $product->quantity }}</td>
-            <td>{{ $product->unit }}</td>
             <td> <form action="#" method="POST">
              <a class="btn btn-primary" href="{{ route('retails.edit',$product->id)}}">Edit</a>
                 @csrf

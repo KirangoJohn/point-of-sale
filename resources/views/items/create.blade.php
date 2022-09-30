@@ -58,42 +58,7 @@
               <input type="date" class="form-control" name="exp_date"/>
           </div>
 </div>
-<div class="col-sm-6">
-            <div class="form-group">
-              <label for="buying_price">Buying Price :</label>
-              <input type="text" class="form-control" name="buying_price"/>
-          </div>
-</div>
-<div class="col-sm-6">
-            <div class="form-group">
-              <label for="price">Retail Price :</label>
-              <input type="text" class="form-control" name="price"/>
-          </div>
-</div>
-<div class="col-sm-6">
-            <div class="form-group">
-              <label for="quantity">Retail Quantity :</label>
-              <input type="text" class="form-control" name="quantity"/>
-          </div>
-</div>
-<div class="col-sm-6">
-            <div class="form-group">
-              <label for="price">Wholesale Price :</label>
-              <input type="text" class="form-control" name="wholesale_price"/>
-          </div>
-</div>
-<div class="col-sm-6">
-            <div class="form-group">
-              <label for="quantity_wholesale">Wholesale Quantity :</label>
-              <input type="text" class="form-control" name="quantity_wholesale"/>
-          </div>
-</div>
-<div class="col-sm-6">
-            <div class="form-group">
-              <label for="unit">Unit :</label>
-              <input type="text" class="form-control" name="unit"/>
-          </div>
-</div>
+
 <div class="col-sm-6">
             <div class="form-group">
               <label for="reorder">Reorder :</label>
