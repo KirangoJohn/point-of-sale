@@ -1,23 +1,46 @@
-
-@extends('layout') 
+@extends('layout')
 @section('content')
 @include('navbar')
-
-<div class="container-fluid">
+<style>
+  .uper {
+    margin-top: 40px;
+  }
+</style>
+<div class="container">
 <h1>Wholesale Products List</h1>
-<div><a class="btn btn-primary btn-lg float-right" href="{{url('wholesales/create')}}" role="button">Add New Wholesale Products</a></div>
+
 <hr>
-
-@if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
-    @endif
-
-        <div class="card card-warning">
+<div class="uper">
+  @if(session()->get('success'))
+    <div class="alert alert-success">
+      {{ session()->get('success') }}  
+    </div><br />
+  @endif
+  <div class="card card-warning">
         <div class="card-header">
-        <h3 class="card-title">Items</h3>
+        <class="card-title">
+        @if(checkPermission(['admin','superadmin']))
+<div><a class="btn btn-primary btn-lg float-right" href="{{url('wholesales/create')}}" role="button">Add New Wholesale Products</a></div>
+
+        @endif
+        <div class="row">
+          <div class="col-sm-6">
+        <form action="{{ route('wholesales.index') }}" method="GET">
+          <input type="text" class="form-control" placeholder="Search by name" name="search">
+          </div>
+          <div class="col-sm-6">
+          <button class="btn btn-primary" type="submit">Search</button>
+          
+          <form action="{{ route('wholesales.index') }}">
+          <button class="btn btn-success" type="submit">Refresh</button>
+</form>
 </div>
+      </form>
+</div>
+<div class="card-body">
+  <table class="table table-striped">
+    <thead>
+
 <div class="card-body">
     <table class="table table-bordered">
         <tr>
@@ -34,19 +57,18 @@
             <th>Action</th>
         </tr>
         <tr>
-        @foreach($products as $product)
-             
-            <td>{{ $product->product_name }}</td>
-            <td>{{ $product->category }}</td>
-            <td>{{ $product->description }}</td>
-            <td>{{ $product->sku }}</td>
-            <td>{{ $product->unit }}</td>
-            <td>{{ $product->manuf_date }}</td>
-            <td>{{ $product->exp_date }}</td>
-            <td>{{ $product->selling_price }}</td>
-            <td>{{ $product->quantity }}</td>
+        @foreach($wholesales as $wholesale)
+            <td>{{ $wholesale->product_name }}</td>
+            <td>{{ $wholesale->category }}</td>
+            <td>{{ $wholesale->description }}</td>
+            <td>{{ $wholesale->sku }}</td>
+            <td>{{ $wholesale->unit }}</td>
+            <td>{{ $wholesale->manuf_date }}</td>
+            <td>{{ $wholesale->exp_date }}</td>
+            <td>{{ $wholesale->selling_price }}</td>
+            <td>{{ $wholesale->quantity }}</td>
             <td> <form action="#" method="POST">
-             <a class="btn btn-primary" href="{{ route('wholesales.edit',$product->id)}}">Edit</a>
+             <a href="{{ route('wholesales.edit', $wholesale->id)}}" class="btn btn-primary">Edit</a>
                 @csrf
                 @method('DELETE')
             <button type="submit" class="btn btn-danger">Delete</button>

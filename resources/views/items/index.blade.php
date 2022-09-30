@@ -46,7 +46,6 @@
           <th>Description</th>
           <th> Manuf Date</th>
           <th>Exp Date</th>
-          <th> Reorder Level</th>
           @if(checkPermission(['admin','superadmin']))
           <th colspan="2">Action</th>
           @endif
@@ -61,7 +60,6 @@
             <td>{{$test->description}}</td>
             <td>{{$test->manuf_date}}</td>
             <td>{{$test->exp_date}}</td>  
-            <td>{{$test->reorder}}</td>
             @if(checkPermission(['admin','superadmin']))
             <td><a href="{{ route('items.edit', $test->id)}}" class="btn btn-primary">Edit</a></td>
             <td>

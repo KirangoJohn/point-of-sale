@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Wholesale extends Model
 {
+    use HasFactory;
     protected $fillable = [
-        'products_id', 'quantity', 'selling_price','buying_price', 'unit'
+        'products_id', 'buying_price', 'selling_price','quantity', 'unit', 'reorder'
     ];
 }

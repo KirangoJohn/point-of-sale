@@ -59,12 +59,6 @@
           </div>
 </div>
 
-<div class="col-sm-6">
-            <div class="form-group">
-              <label for="reorder">Reorder :</label>
-              <input type="text" class="form-control" name="reorder"/>
-          </div>
-
           <button type="submit" class="btn btn-primary">Add Item</button>
       </form>
   </div>

@@ -5,7 +5,9 @@
 </button>
 <div class="collapse navbar-collapse">
 <div class="navbar-nav">
-
+@if(checkPermission(['admin','superadmin','user']))
+    <a class="nav-item nav-link" href="{{url('/items')}}">Add new Items</a>
+    @endif
 @if(checkPermission(['admin','superadmin']))
     <div class="dropdown show">
   <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -14,7 +16,7 @@
   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
     <a class="dropdown-item" href="{{'/retails'}}">Retail Products</a>
     @if(checkPermission(['admin','superadmin']))
-    <a class="dropdown-item" href="{{'wholesales'}}">Wholesale Products</a>
+    <a class="dropdown-item" href="{{'/wholesales'}}">Wholesale Products</a>
      @endif
   </div>
   @endif

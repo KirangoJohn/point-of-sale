@@ -58,7 +58,6 @@ class ItemController extends Controller
             'photo' => '',
             'manuf_date' => '',
             'exp_date' => '',
-            'reorder' => 'required',
         ]);
         $show = Product::create($validatedData);
    
@@ -105,7 +104,6 @@ class ItemController extends Controller
             'photo' => '',
             'manuf_date' => '',
             'exp_date' => '',
-            'reorder' => 'required',
         ]);
         Product::whereId($id)->update($validatedData);
         return redirect('/items')->with('success', 'Data is successfully updated');

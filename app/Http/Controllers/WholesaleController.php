@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-//use App\Models\Product;
+use App\Models\Product;
 use App\Models\Wholesale;
 use DB;
 
@@ -27,12 +27,13 @@ class WholesaleController extends Controller
     public function index(Request $request)
     {
         $search = $request->get('search');
-        $products = DB::table('products')
-          ->select('products.id','products.product_name', 'products.sku','products.category','products.description','products.manuf_date','products.exp_date','wholesales.selling_price','wholesales.quantity','wholesales.unit')
+        $wholesales = DB::table('products')
+          ->select('products.id','products.product_name', 'products.sku','products.category','products.description','products.manuf_date','products.exp_date','wholesales.id','wholesales.selling_price','wholesales.quantity','wholesales.unit')
           ->join('wholesales', 'wholesales.products_id', '=', 'products.id')
           ->where('products.product_name', 'LIKE', "%{$search}%")
           ->get();
-        return view('wholesales.index',compact('products','search'));
+        return view('wholesales.index',compact('wholesales','search'));
+        
     }
 
     /**
@@ -42,7 +43,8 @@ class WholesaleController extends Controller
      */
     public function create()
     {
-         return view('wholesales.create');
+        $products = DB::table("products")->pluck("product_name", "id");
+         return view('wholesales.create', compact('products'));
     }
 
     /**
@@ -53,7 +55,19 @@ class WholesaleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'products_id' => 'required',
+            'buying_price' => 'required',
+            'selling_price' => 'required',
+            'quantity' => 'required',
+            'unit' => 'required',
+            'reorder' => 'required',
+        ]);
+
+        $show = Wholesale::create($validatedData);
+        //dd($validatedData->all());
+   
+        return redirect('/wholesales/create')->with('success', 'Product is successfully saved');
     }
 
     /**
@@ -75,8 +89,8 @@ class WholesaleController extends Controller
      */
     public function edit($id)
     {
-        $wholesales = Wholesale::findOrFail($id);
-        return view('wholesales.edit', compact('wholesales'));
+        $wholesale = Wholesale::findOrFail($id);
+        return view('wholesales.edit', compact('wholesale'));
     }
 
     /**
@@ -88,7 +102,15 @@ class WholesaleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'buying_price' => 'required',
+            'selling_price' => 'required',
+            'quantity' => 'required',
+            'unit' => 'required',
+            'reorder' => 'required',
+        ]);
+        Wholesale::whereId($id)->update($validatedData);
+        return redirect('/wholesales')->with('success', 'Data is successfully updated');
     }
 
     /**
