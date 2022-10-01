@@ -121,6 +121,9 @@ class WholesaleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $wholesale = Wholesale::findOrFail($id);
+        $wholesale->delete();
+
+        return redirect('/wholesales');
     }
 }

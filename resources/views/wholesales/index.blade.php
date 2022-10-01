@@ -54,7 +54,7 @@
             <th>Expiry Date</th>
             <th>Selling Price</th>
             <th>Quantity</th>
-            <th>Action</th>
+            <th colspan="2">Action</th>
         </tr>
         <tr>
         @foreach($wholesales as $wholesale)
@@ -67,8 +67,10 @@
             <td>{{ $wholesale->exp_date }}</td>
             <td>{{ $wholesale->selling_price }}</td>
             <td>{{ $wholesale->quantity }}</td>
-            <td> <form action="#" method="POST">
-             <a href="{{ route('wholesales.edit', $wholesale->id)}}" class="btn btn-primary">Edit</a>
+            <td> 
+             <a href="{{ route('wholesales.edit', $wholesale->id)}}" class="btn btn-primary">Edit</a></td>
+             <td>
+                <form action="{{ route('wholesales.destroy', $wholesale->id)}}" method="POST">
                 @csrf
                 @method('DELETE')
             <button type="submit" class="btn btn-danger">Delete</button>

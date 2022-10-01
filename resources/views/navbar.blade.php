@@ -6,7 +6,7 @@
 <div class="collapse navbar-collapse">
 <div class="navbar-nav">
 @if(checkPermission(['admin','superadmin','user']))
-    <a class="nav-item nav-link" href="{{url('/items')}}">Add new Items</a>
+    <a class="nav-item nav-link" href="{{url('/items')}}">All Items</a>
     @endif
 @if(checkPermission(['admin','superadmin']))
     <div class="dropdown show">
