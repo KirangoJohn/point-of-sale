@@ -20,7 +20,7 @@
         <div class="card-header">
         <class="card-title">
         @if(checkPermission(['admin','superadmin']))
-<div><a class="btn btn-primary btn-lg float-right" href="{{url('retails/create')}}" role="button">Add New Wholesale Products</a></div>
+<div><a class="btn btn-primary btn-lg float-right" href="{{url('retails/create')}}" role="button">Add New retail Products</a></div>
 
         @endif
         <div class="row">
@@ -41,11 +41,6 @@
   <table class="table table-striped">
     <thead>
 
-@if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
-    @endif
 <div class="card-body">
     <table class="table table-bordered">
         <tr>
@@ -59,22 +54,23 @@
             <th>Expiry Date</th>
             <th>Selling Price</th>
             <th>Quantity</th>
-            <th>Action</th>
+            <th colspan="2">Action</th>
         </tr>
         <tr>
-        @foreach($products as $product)
-             
-            <td>{{ $product->product_name }}</td>
-            <td>{{ $product->category }}</td>
-            <td>{{ $product->description }}</td>
-            <td>{{ $product->sku }}</td>
-            <td>{{ $product->unit }}</td>
-            <td>{{ $product->manuf_date }}</td>
-            <td>{{ $product->exp_date }}</td>
-            <td>{{ $product->selling_price }}</td>
-            <td>{{ $product->quantity }}</td>
-            <td> <form action="#" method="POST">
-             <a class="btn btn-primary" href="{{ route('retails.edit',$product->id)}}">Edit</a>
+        @foreach($retails as $retail)
+            <td>{{ $retail->product_name }}</td>
+            <td>{{ $retail->category }}</td>
+            <td>{{ $retail->description }}</td>
+            <td>{{ $retail->sku }}</td>
+            <td>{{ $retail->unit }}</td>
+            <td>{{ $retail->manuf_date }}</td>
+            <td>{{ $retail->exp_date }}</td>
+            <td>{{ $retail->selling_price }}</td>
+            <td>{{ $retail->quantity }}</td>
+            <td> 
+             <a href="{{ route('retails.edit', $retail->id)}}" class="btn btn-primary">Edit</a></td>
+             <td>
+                <form action="{{ route('retails.destroy', $retail->id)}}" method="POST">
                 @csrf
                 @method('DELETE')
             <button type="submit" class="btn btn-danger">Delete</button>

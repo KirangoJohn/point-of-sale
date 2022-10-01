@@ -8,6 +8,9 @@
 @if(checkPermission(['admin','superadmin','user']))
     <a class="nav-item nav-link" href="{{url('/items')}}">All Items</a>
     @endif
+    @if(checkPermission(['user','admin','superadmin']))
+    <a class="nav-item nav-link" href="{{url('/pos')}}">POS</a>
+    @endif
 @if(checkPermission(['admin','superadmin']))
     <div class="dropdown show">
   <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -21,13 +24,6 @@
   </div>
   @endif
 </div>
-@if(checkPermission(['user','admin','superadmin']))
-    <a class="nav-item nav-link" href="{{url('/pos')}}">POS</a>
-    @endif
-    @if(checkPermission(['admin','superadmin','user']))
-    <a class="nav-item nav-link" href="{{url('/stocks')}}">Stock in Store</a>
-    @endif
-
     @if(checkPermission(['admin','superadmin']))
     <div class="dropdown show">
   <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -10,6 +10,7 @@
   <div class="card-header">
     Edit Data
   </div>
+  <div class="container">
   <div class="card-body">
     @if ($errors->any())
       <div class="alert alert-danger">
@@ -20,38 +21,46 @@
         </ul>
       </div><br />
     @endif
-    <form method="post" action="{{ route('retails.update', $retails->id ) }}">
-  
-          <div class="form-group">
-              @csrf
-              @method('PATCH')
+    <form method="post" action="{{ route('retails.update', $retail->id ) }}">
               <div class="row">
             <div class="col-sm-6">
             <div class="form-group"> 
-             
+            @csrf
+              @method('PATCH')
               <label for="product_name">Product Name:</label>
-              <input type="text" class="form-control" name="products_id" value="{{ $retails->products_id }}"/>
+              <input type="text" class="form-control" name="products_id" value="{{ $retail->products_id }}"/>
           </div>
           </div>
           <div class="col-sm-6">
             <div class="form-group">
               <label for="cases">Buying price :</label>
-              <input type="text" class="form-control" name="buying_price" value="{{ $retails->buying_price }}"/>
+              <input type="text" class="form-control" name="buying_price" value="{{ $retail->buying_price }}"/>
           </div>
           </div>
           <div class="col-sm-6">
             <div class="form-group">
               <label for="sku">Selling Price :</label>
-              <input type="text" class="form-control" name="selling_price" value="{{ $retails->selling_price }}"/>
+              <input type="text" class="form-control" name="selling_price" value="{{ $retail->selling_price }}"/>
           </div>
           </div>
           <div class="col-sm-6">
             <div class="form-group">
               <label for="description">Quantity :</label>
-              <input type="text" class="form-control" name="quantity" value="{{ $retails->quantity }}"/>
+              <input type="text" class="form-control" name="quantity" value="{{ $retail->quantity }}"/>
           </div>
-        </div>
-        
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="unit">Unit :</label>
+              <input type="text" class="form-control" name="unit" value="{{ $retail->unit }}"/>
+          </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="description">Reorder :</label>
+              <input type="text" class="form-control" name="reorder" value="{{ $retail->reorder }}"/>
+          </div>
         <button type="submit" class="btn btn-primary">Update</button>
       </form>
+</div>
 @endsection
