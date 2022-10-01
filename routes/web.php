@@ -41,6 +41,8 @@ Route::resource('stocks', 'StockController');
 Route::resource('stockReports', 'StockReportController');
 Route::resource('items', 'ItemController');
 Route::resource('wholesales', 'WholesaleController');
+Route::resource('wholesalestocks', 'WholesaleStockController');
+Route::resource('retailstocks', 'RetailStockController');
 Route::resource('retails', 'RetailController');
 Route::resource('salesreports', 'SalesReportController');
 Route::resource('purchases', 'PurchaseController');

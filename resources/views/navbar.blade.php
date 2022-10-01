@@ -27,6 +27,18 @@
     @if(checkPermission(['admin','superadmin','user']))
     <a class="nav-item nav-link" href="{{url('/stocks')}}">Stock in Store</a>
     @endif
+
+    @if(checkPermission(['admin','superadmin']))
+    <div class="dropdown show">
+  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+   Stock
+  </a>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <a class="dropdown-item" href="{{'/wholesalestocks'}}">Wholesale Stock</a>
+    <a class="dropdown-item" href="#">Retail Stock</a>
+  </div>
+  @endif
+</div>
     
     @if(checkPermission(['admin','superadmin']))
     <div class="dropdown show">
