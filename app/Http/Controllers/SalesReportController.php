@@ -24,13 +24,14 @@ class SalesReportController extends Controller
          $search = $request->get('search');
 
         $sales = DB::table('products')
-          ->select('products_id','products.product_name', 'products.sku','products.price','sales.created_at', 'sales.quantity as quantity',\DB::raw('sales.quantity*products.price as subtotal'),\DB::raw('sales.quantity*products.price - sales.quantity*products.buying_price as profit'))
+          ->select('products_id','products.product_name', 'products.sku','products.price','sales.created_at','sales.sale_type', 'sales.quantity as quantity',\DB::raw('sales.quantity*products.price as subtotal'),\DB::raw('sales.quantity*products.price - sales.quantity*products.buying_price as profit'))
           ->join('sales', 'sales.products_id', '=', 'products.id')
           ->where('products.product_name', 'LIKE', "%{$search}%")
+          ->where('sales.sale_type', '=', 'wholesale')
           ->get();
 
           $dates=DB::table('products')
-          ->select('products_id','products.product_name', 'products.sku','products.price','sales.created_at', 'sales.quantity as quantity',\DB::raw('sales.quantity*products.price as subtotal'),\DB::raw('sales.quantity*products.price - sales.quantity*products.buying_price as profit'))
+          ->select('products_id','products.product_name', 'products.sku','products.price','sales.created_at', 'sales.sale_type','sales.quantity as quantity',\DB::raw('sales.quantity*products.price as subtotal'),\DB::raw('sales.quantity*products.price - sales.quantity*products.buying_price as profit'))
           ->join('sales', 'sales.products_id', '=', 'products.id')
           ->whereDate('sales.created_at', '>=', $fromdate)
           ->whereDate('sales.created_at', '<=', $todate)
@@ -41,18 +42,21 @@ class SalesReportController extends Controller
         ->select('products_id',\DB::raw('sales.quantity*products.price as subtotal'),\DB::raw('sum(sales.quantity*products.price - sales.quantity*products.buying_price) as total_profit'))
         ->join('sales', 'sales.products_id', '=', 'products.id')
         ->where('products.product_name', 'LIKE', "%{$search}%")
+        ->where('sales.sale_type', '=', 'wholesale')
         ->get();
 
           $totals = DB::table('products')
           ->select('products.price',\DB::raw("SUM(sales.quantity*products.price) as total") )
           ->join('sales', 'sales.products_id', '=', 'products.id')
           ->where('products.product_name', 'LIKE', "%{$search}%")
+          ->where('sales.sale_type', '=', 'wholesale')
           ->get();
 
           $quantity = DB::table('products')
           ->select('products.price',\DB::raw("SUM(sales.quantity) as quantity") )
           ->join('sales', 'sales.products_id', '=', 'products.id')
           ->where('products.product_name', 'LIKE', "%{$search}%")
+          ->where('sales.sale_type', '=', 'wholesale')
           ->get();
 
         return view('salesreports.index',compact('sales', 'totals', 'search','quantity', 'dates', 'profit'));

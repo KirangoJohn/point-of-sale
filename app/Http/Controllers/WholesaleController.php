@@ -28,7 +28,7 @@ class WholesaleController extends Controller
     {
         $search = $request->get('search');
         $wholesales = DB::table('products')
-          ->select('products.id','products.product_name', 'products.sku','products.category','products.description','products.manuf_date','products.exp_date','wholesales.id','wholesales.selling_price','wholesales.quantity','wholesales.unit')
+          ->select('products.id','products.product_name', 'products.sku','products.category','products.description','products.manuf_date','products.exp_date','wholesales.id','wholesales.buying_price','wholesales.selling_price','wholesales.quantity','wholesales.unit')
           ->join('wholesales', 'wholesales.products_id', '=', 'products.id')
           ->where('products.product_name', 'LIKE', "%{$search}%")
           ->get();

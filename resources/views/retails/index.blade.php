@@ -52,6 +52,7 @@
             <th>Unit</th>
             <th>Manf Date</th>
             <th>Expiry Date</th>
+            <th>Buying Price</th>
             <th>Selling Price</th>
             <th>Quantity</th>
             <th colspan="2">Action</th>
@@ -65,6 +66,7 @@
             <td>{{ $retail->unit }}</td>
             <td>{{ $retail->manuf_date }}</td>
             <td>{{ $retail->exp_date }}</td>
+            <td>{{ $retail->buying_price}}</td>
             <td>{{ $retail->selling_price }}</td>
             <td>{{ $retail->quantity }}</td>
             <td> 

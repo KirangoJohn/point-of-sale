@@ -29,7 +29,7 @@ class RetailController extends Controller
     {
         $search = $request->get('search');
         $retails = DB::table('products')
-          ->select('products.id','products.product_name', 'products.sku','products.category','products.description','products.manuf_date','products.exp_date','retails.id','retails.selling_price','retails.quantity','retails.unit')
+          ->select('products.id','products.product_name', 'products.sku','products.category','products.description','products.manuf_date','products.exp_date','retails.id','retails.buying_price','retails.selling_price','retails.quantity','retails.unit')
           ->join('retails', 'retails.products_id', '=', 'products.id')
           ->where('products.product_name', 'LIKE', "%{$search}%")
           ->get();
