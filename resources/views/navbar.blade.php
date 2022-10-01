@@ -31,7 +31,7 @@
   </a>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
     <a class="dropdown-item" href="{{'/wholesalestocks'}}">Wholesale Stock</a>
-    <a class="dropdown-item" href="#">Retail Stock</a>
+    <a class="dropdown-item" href="{{'/retailstocks'}}">Retail Stock</a>
   </div>
   @endif
 </div>
