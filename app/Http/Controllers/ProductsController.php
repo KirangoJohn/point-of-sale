@@ -101,10 +101,10 @@ class ProductsController extends Controller
 
         $productType = session('productType','retail');
         $saleType = 'retail';
-        $joinTable = 'retail';
+        $relation = 'retail';
         if($productType == 'wholesale'){
             $saleType = 'wholesale';
-            $joinTable = 'wholesale';
+            $relation = 'wholeSale';
         }
 
         foreach($request->productname as $key=>$productname){
@@ -152,9 +152,9 @@ class ProductsController extends Controller
             $userOrder->receipt_title = 'Invoice';
         }
 
-        $userOrder->sales->map(function ($sale) use ($joinTable){
-            $sale->total_price += $sale->product->$joinTable->selling_price * $sale->quantity;
-            $sale->product->price = $sale->product->$joinTable->selling_price;
+        $userOrder->sales->map(function ($sale) use ($relation){
+            $sale->total_price += $sale->product->$relation->selling_price * $sale->quantity;
+            $sale->product->price = $sale->product->$relation->selling_price;
         });
 
         //dd($request->all());
