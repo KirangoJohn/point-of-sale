@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Retail extends Model
 {
+    public $timestamps = false;
     protected $fillable = [
         'products_id', 'quantity', 'selling_price','buying_price', 'unit'
     ];

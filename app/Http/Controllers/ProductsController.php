@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Payment;
+use App\Models\Retail;
+use App\Models\Wholesale;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Order;
@@ -34,15 +36,18 @@ class ProductsController extends Controller
             session()->forget('cart');
         }
 
-        $priceColumn = 'price';
+        $priceColumn = 'retails.selling_price as price';
+        $joinTable = 'retails';
         if($productType == 'wholesale'){
-            $priceColumn = 'wholesale_price as price';
+            $priceColumn = 'wholesales.selling_price as price';
+            $joinTable = 'wholesales';
             session()->put('productType','wholesale');
         }else{
             session()->put('productType','retail');
         }
 
-        $products = Product::select('id', 'product_name', 'sku', 'description', $priceColumn)
+        $products = Product::select('products.id', 'product_name', 'sku', 'description',$priceColumn)
+            ->join($joinTable,$joinTable.'.products_id','=','products.id')
             ->when($search,function ($query) use ($search){
                 $query->where('sku', 'LIKE', "%{$search}%")
                     ->orWhere('product_name', 'LIKE', "%{$search}%");
@@ -62,9 +67,10 @@ class ProductsController extends Controller
         $cart = session()->get('cart', []);
 
         $productType = session('productType','retail');
-        $priceColumn = 'price';
+
+        $relation = 'retail';
         if($productType == 'wholesale'){
-            $priceColumn = 'wholesale_price';
+            $relation = 'wholeSale';
         }
 
         if(isset($cart[$id])) {
@@ -75,7 +81,7 @@ class ProductsController extends Controller
                 "quantity" => 1,
                 "id" => $product->id,
                 "sku" => $product->sku,
-                "price" => $product->$priceColumn,
+                "price" => $product->$relation->selling_price,
                 "image" => $product->image
             ];
         }
@@ -93,6 +99,14 @@ class ProductsController extends Controller
         $orders->user_id=$user;
         $orders->save();
 
+        $productType = session('productType','retail');
+        $saleType = 'retail';
+        $joinTable = 'retail';
+        if($productType == 'wholesale'){
+            $saleType = 'wholesale';
+            $joinTable = 'wholesale';
+        }
+
         foreach($request->productname as $key=>$productname){
             $sales=new Sale;
             $sales->products_id=$request->productsid[$key];
@@ -101,11 +115,18 @@ class ProductsController extends Controller
             $sales->user_id=$user;
             $sales->cashier=$cashier;
             $sales->order_id=$orders->id;
+            $sales->sale_type=$saleType;
             $sales->save();
 
-            Product::where('sku',$request->productsku[$key])->update([
-                'quantity' => DB::raw('quantity - '.$request->quantity[$key])
-            ]);
+            Wholesale::where('products_id',$sales->products_id)
+                ->update([
+                    'quantity' => DB::raw('quantity - '.$request->quantity[$key])
+                ]);
+
+            Retail::where('products_id',$sales->products_id)
+                ->update([
+                    'quantity' => DB::raw('quantity - '.$request->quantity[$key])
+                ]);
         }
 
         Payment::create([
@@ -116,7 +137,7 @@ class ProductsController extends Controller
         ]);
 
         $userOrder = Order::
-            select(\DB::raw('
+        select(\DB::raw('
                 orders.*,
                 (select company_name from company) as company_name,
                 (select address from company) as company_address,
@@ -126,17 +147,14 @@ class ProductsController extends Controller
             ->with('sales', 'sales.product', 'payment')
             ->first();
 
-        $productType = session('productType','retail');
-        $priceColumn = 'price';
         $userOrder->receipt_title = 'Cash Sale';
         if($productType == 'wholesale'){
-            $priceColumn = 'wholesale_price';
             $userOrder->receipt_title = 'Invoice';
         }
 
-        $userOrder->sales->map(function ($sale) use ($priceColumn){
-            $sale->total_price += $sale->product->$priceColumn * $sale->quantity;
-            $sale->product->price = $sale->product->$priceColumn;
+        $userOrder->sales->map(function ($sale) use ($joinTable){
+            $sale->total_price += $sale->product->$joinTable->selling_price * $sale->quantity;
+            $sale->product->price = $sale->product->$joinTable->selling_price;
         });
 
         //dd($request->all());
