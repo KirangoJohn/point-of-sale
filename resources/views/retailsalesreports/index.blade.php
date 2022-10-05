@@ -2,31 +2,32 @@
 @section('content')
 @include('navbar')
 <div class="container">
-<h1>Wholesale Sales Report</h1>
+<h1>Retail Sales Report</h1>
 <hr>
 <button class="btn btn-success float-right" onclick="printDivContent()" />Print</button>
+
 <div class="row">
 <div class="col-sm-4">
-<form action="{{ route('salesreports.index') }}" method="GET">
+<form action="{{ route('retailsalesreports.index') }}" method="GET">
 <input type="text" name="search" class="form-control" placeholder="Search by name"></div>
 <div class="col-sm-2">
 <button class="btn btn-primary" type="submit">Search</button> 
 </div>
 <div class="col-sm-4">
     <div class="row">
-<form action="{{ route('salesreports.index') }}" method="GET">
-<div class="col-sm-1"></div>
+<form action="{{ route('retailsalesreports.index') }}" method="GET">
+<div class="col-sm-1">From:</div>
 <div class="col-sm-5">
-<!--input type="date" name="fromdate" class="form-control" placeholder="From Date"-->
+<input type="date" name="fromdate" class="form-control" placeholder="From Date">
 </div>
-<div class="col-sm-1"></div>
+<div class="col-sm-1">To:</div>
 <div class="col-sm-5">
-<!--input type="date" name="todate" class="form-control"-->
+<input type="date" name="todate" class="form-control">
 </div>
 </div>
 </div>
 <div class="col-sm-2">
-<!--button class="btn btn-primary" type="submit">Search</button-->
+<button class="btn btn-primary" type="submit">Search</button>
     
   <button class="btn btn-success" type="submit">Referesh</button>
 </div>

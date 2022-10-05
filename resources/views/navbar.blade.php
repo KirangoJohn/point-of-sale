@@ -43,12 +43,14 @@
   </a>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
   @if(checkPermission(['superadmin']))
-    <a class="dropdown-item" href="{{'salesreports'}}">Sales Reports</a>
-    @endif
-    <a class="dropdown-item" href="{{'/purchases'}}">Purchases Report</a>
-    <a class="dropdown-item" href="{{'/stockReports'}}">Stock Report</a>
+    <a class="dropdown-item" href="{{'/salesreports'}}">WholeSales Reports</a>
+    <a class="dropdown-item" href="{{'/salesreports'}}">Retail Sales Reports</a>
+    <a class="dropdown-item" href="{{'/salesbydatereports'}}">WholeSales Reports by Date</a>
+    <a class="dropdown-item" href="{{'/retailsalesbydatereports'}}">Retail Reports by Date</a>
     <a class="dropdown-item" href="{{'/expReports'}}">Items Expiry Report</a>
   </div>
+  @endif
+</div>
 </div>
     @endif
     @if(checkPermission(['admin','superadmin']))

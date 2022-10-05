@@ -9,6 +9,7 @@ use App\Http\Controllers\SalesReportController;
 
 
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,6 +46,9 @@ Route::resource('wholesalestocks', 'WholesaleStockController');
 Route::resource('retailstocks', 'RetailStockController');
 Route::resource('retails', 'RetailController');
 Route::resource('salesreports', 'SalesReportController');
+Route::resource('salesbydatereports', 'SalesByDateReportController');
+Route::resource('retailsalesbydatereports', 'RetailSalesByDateReportController');
+Route::resource('retailsalesreports', 'RetailReportController');
 Route::resource('purchases', 'PurchaseController');
 Route::resource('expReports', 'ExpReportContoller');
 

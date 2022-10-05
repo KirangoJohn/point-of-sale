@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Sale;
 use DB;
 
-class SalesReportController extends Controller
+class RetailSalesByDateReportController  extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,37 +23,44 @@ class SalesReportController extends Controller
        
          $search = $request->get('search');
 
-        $sales = DB::table('products')
+        /*$sales = DB::table('products')
           ->select('wholesales.products_id','products.product_name', 'products.sku','wholesales.buying_price','wholesales.selling_price','sales.created_at','sales.sale_type', 'sales.quantity as quantity',\DB::raw('sales.quantity*wholesales.selling_price as subtotal'),\DB::raw('sales.quantity*wholesales.selling_price - sales.quantity*wholesales.buying_price as profit'))
           ->join('sales', 'sales.products_id', '=', 'products.id')
           ->join('wholesales', 'wholesales.products_id', '=', 'products.id')
           ->where('products.product_name', 'LIKE', "%{$search}%")
           ->where('sales.sale_type', '=', 'wholesale')
-          ->get();
-
-          /*$dates=DB::table('products')
-          ->select('products_id','products.product_name', 'products.sku','products.price','sales.created_at', 'sales.sale_type','sales.quantity as quantity',\DB::raw('sales.quantity*products.price as subtotal'),\DB::raw('sales.quantity*products.price - sales.quantity*products.buying_price as profit'))
-          ->join('sales', 'sales.products_id', '=', 'products.id')
-          ->whereDate('sales.created_at', '>=', $fromdate)
-          ->whereDate('sales.created_at', '<=', $todate)
           ->get();*/
 
-
-        $profit=DB::table('products')
-        ->select('wholesales.products_id',\DB::raw('sales.quantity*wholesales.selling_price as subtotal'),\DB::raw('sum(sales.quantity*wholesales.selling_price - sales.quantity*wholesales.buying_price) as total_profit'))
-        ->join('sales', 'sales.products_id', '=', 'products.id')
-        ->join('wholesales', 'wholesales.products_id', '=', 'products.id')
-        ->where('products.product_name', 'LIKE', "%{$search}%")
-        ->where('sales.sale_type', '=', 'wholesale')
-        ->get();
-
-          $totals = DB::table('products')
-          ->select('wholesales.selling_price',\DB::raw("SUM(sales.quantity*wholesales.selling_price) as total") )
+          $dates=DB::table('products')
+          ->select('retails.products_id','products.product_name', 'products.sku','retails.buying_price','retails.selling_price','sales.created_at','sales.sale_type', 'sales.quantity as quantity',\DB::raw('sales.quantity*retails.selling_price as subtotal'),\DB::raw('sales.quantity*retails.selling_price - sales.quantity*retails.buying_price as profit'))
           ->join('sales', 'sales.products_id', '=', 'products.id')
-          ->join('wholesales', 'wholesales.products_id', '=', 'products.id')
-          ->where('products.product_name', 'LIKE', "%{$search}%")
-          ->where('sales.sale_type', '=', 'wholesale')
+          ->join('retails', 'retails.products_id', '=', 'products.id')
+          ->whereDate('sales.created_at', '>=', $fromdate)
+          ->whereDate('sales.created_at', '<=', $todate)
+          ->where('sales.sale_type', '=', 'retail')
+          -> orderBy('sales.created_at', 'asc')
           ->get();
+
+
+          $profit=DB::table('products')
+          ->select('retails.products_id',\DB::raw('sales.quantity*retails.selling_price as subtotal'),\DB::raw('sum(sales.quantity*retails.selling_price - sales.quantity*retails.buying_price) as total_profit'))
+          ->join('sales', 'sales.products_id', '=', 'products.id')
+          ->join('retails', 'retails.products_id', '=', 'products.id')
+          ->whereDate('sales.created_at', '>=', $fromdate)
+          ->whereDate('sales.created_at', '<=', $todate)
+          ->where('sales.sale_type', '=', 'retail')
+          -> orderBy('sales.created_at', 'asc')
+          ->get();
+  
+            $totals = DB::table('products')
+            ->select('retails.selling_price',\DB::raw("SUM(sales.quantity*retails.selling_price) as total") )
+            ->join('sales', 'sales.products_id', '=', 'products.id')
+            ->join('retails', 'retails.products_id', '=', 'products.id')
+            ->whereDate('sales.created_at', '>=', $fromdate)
+            ->whereDate('sales.created_at', '<=', $todate)
+            ->where('sales.sale_type', '=', 'retail')
+            -> orderBy('sales.created_at', 'asc')
+            ->get();
 
           /*$quantity = DB::table('wholesales')
           ->select('products.price',\DB::raw("SUM(sales.quantity) as quantity") )
@@ -62,7 +69,7 @@ class SalesReportController extends Controller
           ->where('sales.sale_type', '=', 'wholesale')
           ->get();*/
 
-        return view('salesreports.index',compact('sales', 'totals', 'search', 'profit'));
+        return view('retailsalesbydatereports.index',compact('dates', 'totals', 'search', 'profit'));
     }
 
     /**

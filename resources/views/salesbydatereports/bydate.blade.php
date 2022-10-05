@@ -2,43 +2,44 @@
 @section('content')
 @include('navbar')
 <div class="container">
-<h1>Wholesale Sales Report</h1>
+<h1>Sales Report</h1>
 <hr>
 <button class="btn btn-success float-right" onclick="printDivContent()" />Print</button>
+
 <div class="row">
 <div class="col-sm-4">
-<form action="{{ route('salesreports.index') }}" method="GET">
-<input type="text" name="search" class="form-control" placeholder="Search by name"></div>
+</div>
 <div class="col-sm-2">
-<button class="btn btn-primary" type="submit">Search</button> 
+
 </div>
 <div class="col-sm-4">
     <div class="row">
-<form action="{{ route('salesreports.index') }}" method="GET">
-<div class="col-sm-1"></div>
+<form action="{{ route('salesreports.bydate') }}" method="GET">
+<div class="col-sm-1">From:</div>
 <div class="col-sm-5">
-<!--input type="date" name="fromdate" class="form-control" placeholder="From Date"-->
+<input type="date" name="fromdate" class="form-control" placeholder="From Date">
 </div>
-<div class="col-sm-1"></div>
+<div class="col-sm-1">To:</div>
 <div class="col-sm-5">
-<!--input type="date" name="todate" class="form-control"-->
+<input type="date" name="todate" class="form-control">
 </div>
 </div>
 </div>
 <div class="col-sm-2">
-<!--button class="btn btn-primary" type="submit">Search</button-->
-    
+
   <button class="btn btn-success" type="submit">Referesh</button>
 </div>
 </form>
 </form>
 </div>
 <div class="container">
-        <div id="printContent">@foreach ($totals as $total)
+        <div id="printContent">@foreach ($total_by_date as $total)
         <p> TOTAL:   KSH    <strong> {{ $total->total }}</strong></p>
         @endforeach
-        
-        @foreach ($profit as $prt)
+        @foreach ($quantity_by_date as $item)
+        <p> QUANTITY SOLD:    <strong> {{ $item->quantity }}</strong></p>
+        @endforeach
+        @foreach ($profit_by_date as $prt)
         <p> Total Profit:    <strong> {{ $prt->total_profit }}</strong></p>
         @endforeach
         
@@ -48,7 +49,6 @@
 <tr>
                     <th>Item</th>
                     <th>SKU</th>
-                    <th>Buying Price</th>
                     <th>Selling Price</th>
                     <th>Quantity</th>
                     <th>Amount</th>
@@ -57,12 +57,11 @@
                    
 </thead>
 <tbody>
-@foreach ($sales as $item)
+@foreach ($dates as $item)
 <tr>
                           <td>{{ $item->product_name }}</td>
                           <td>{{ $item->sku }}</td>
-                          <td>{{ $item->buying_price }}</td>
-                          <td>{{ $item->selling_price }}</td>
+                          <td>{{ $item->price }}</td>
                           <td>{{ $item->quantity }}</td>
                           <td>{{ $item->subtotal }}</td>
                           <td>{{ $item->profit}}</td>
