@@ -11,6 +11,15 @@ use DB;
 
 class CustomAuthController extends Controller
 {
+  public function index(Request $request)
+    {
+       
+        $users = DB::table('users')
+        ->select('users.*','rights.rights')
+        ->join('rights', 'rights.id', '=', 'users.is_permission')
+        ->get();
+        return view('auth.users',compact('users'));
+    }
     public function registration()
     {
         $rights = DB::table("rights")->pluck("rights", "id");
@@ -42,5 +51,31 @@ class CustomAuthController extends Controller
         'is_permission' => $data['is_permission'],
         'password' => Hash::make($data['password'])
       ]);
-    }    
+    } 
+    
+    public function edit($id)
+    {
+        $users = User::findOrFail($id);
+        $rights = DB::table("rights")->pluck("rights", "id");
+        return view('auth.edit',compact('users','rights'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'phone' => '',
+            'email' => '',
+            'is_permission' => '',
+        ]);
+        User::whereId($id)->update($validatedData);
+        return redirect('/users')->with('success', ' Data is successfully updated');
+    }
+    public function destroy($id)
+    {
+    $users = User::findOrFail($id);
+        $users->delete();
+
+        return redirect('/users');
+    }
 }

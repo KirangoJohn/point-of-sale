@@ -121,4 +121,9 @@ class ItemController extends Controller
         $products->delete();
         return redirect('/items')->with('success', 'Data is successfully deleted');
     }
+
+    public function deleteAll($id)
+    {
+        Product::where('id',$id)->delete();
+    }
 }

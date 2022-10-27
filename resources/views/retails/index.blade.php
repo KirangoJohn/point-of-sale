@@ -19,7 +19,7 @@
   <div class="card card-warning">
         <div class="card-header">
         <class="card-title">
-        @if(checkPermission(['admin','superadmin']))
+        @if(checkPermission(['superadmin']))
 <div><a class="btn btn-primary btn-lg float-right" href="{{url('retails/create')}}" role="button">Add New retail Products</a></div>
 
         @endif
@@ -55,7 +55,9 @@
             <th>Buying Price</th>
             <th>Selling Price</th>
             <th>Quantity</th>
+            @if(checkPermission(['superadmin']))
             <th colspan="2">Action</th>
+            @endif
         </tr>
         <tr>
         @foreach($retails as $retail)
@@ -69,6 +71,7 @@
             <td>{{ $retail->buying_price}}</td>
             <td>{{ $retail->selling_price }}</td>
             <td>{{ $retail->quantity }}</td>
+            @if(checkPermission(['superadmin']))
             <td> 
              <a href="{{ route('retails.edit', $retail->id)}}" class="btn btn-primary">Edit</a></td>
              <td>
@@ -76,7 +79,7 @@
                 @csrf
                 @method('DELETE')
             <button type="submit" class="btn btn-danger">Delete</button>
-            </form></td>
+            </form></td>@endif
         </tr>
         @endforeach
  

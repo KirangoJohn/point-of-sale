@@ -51,6 +51,7 @@ Route::resource('retailsalesbydatereports', 'RetailSalesByDateReportController')
 Route::resource('retailsalesreports', 'RetailReportController');
 Route::resource('purchases', 'PurchaseController');
 Route::resource('expReports', 'ExpReportContoller');
+Route::delete('itemsDeleteAll', 'ItemController@deleteAll');
 
 Route::get('salesreports.bydate', [SalesReportController::class, 'bydate'])->name('bydate');
 ///Route::resource('tests', 'TestController');
@@ -62,6 +63,9 @@ Route::get('generate-pdf', [PDFController::class, 'generatePDF']);
 
 Route::get('registration', [CustomAuthController::class, 'registration'])->name('register-user');
 Route::post('custom-registration', [CustomAuthController::class, 'customRegistration'])->name('register.custom'); 
+Route::get('users', [CustomAuthController::class, 'index'])->name('users');
+
+Route::resource('users', 'CustomAuthController');
 
 
 Auth::routes();
