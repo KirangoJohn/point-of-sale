@@ -32,8 +32,8 @@ class WholesaleController extends Controller
           ->join('wholesales', 'wholesales.products_id', '=', 'products.id')
           ->where('products.product_name', 'LIKE', "%{$search}%")
           ->get();
-        return view('wholesales.index',compact('wholesales','search'));
-        
+        return view('admin.wholesales.index',compact('wholesales','search'));
+
     }
 
     /**
@@ -44,7 +44,7 @@ class WholesaleController extends Controller
     public function create()
     {
         $products = DB::table("products")->pluck("product_name", "id");
-         return view('wholesales.create', compact('products'));
+         return view('admin.wholesales.create', compact('products'));
     }
 
     /**
@@ -66,7 +66,7 @@ class WholesaleController extends Controller
 
         $show = Wholesale::create($validatedData);
         //dd($validatedData->all());
-   
+
         return redirect('/wholesales/create')->with('success', 'Product is successfully saved');
     }
 
@@ -90,7 +90,7 @@ class WholesaleController extends Controller
     public function edit($id)
     {
         $wholesale = Wholesale::findOrFail($id);
-        return view('wholesales.edit', compact('wholesale'));
+        return view('admin.wholesales.edit', compact('wholesale'));
     }
 
     /**

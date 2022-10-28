@@ -33,8 +33,8 @@ class RetailController extends Controller
           ->join('retails', 'retails.products_id', '=', 'products.id')
           ->where('products.product_name', 'LIKE', "%{$search}%")
           ->get();
-        return view('retails.index',compact('retails','search'));
-        
+        return view('admin.retails.index',compact('retails','search'));
+
     }
 
     /**
@@ -45,7 +45,7 @@ class RetailController extends Controller
     public function create()
     {
         $products = DB::table("products")->pluck("product_name", "id");
-         return view('retails.create', compact('products'));
+         return view('admin.retails.create', compact('products'));
     }
 
     /**
@@ -67,7 +67,7 @@ class RetailController extends Controller
 
         $show = Retail::create($validatedData);
         //dd($validatedData->all());
-   
+
         return redirect('/retails/create')->with('success', 'Product is successfully saved');
     }
 
@@ -91,7 +91,7 @@ class RetailController extends Controller
     public function edit($id)
     {
         $retail = Retail::findOrFail($id);
-        return view('retails.edit', compact('retail'));
+        return view('admin.retails.edit', compact('retail'));
     }
 
     /**

@@ -29,7 +29,7 @@ class ItemController extends Controller
         $items = DB::table('products')
         ->where('product_name', 'LIKE', "%{$search}%")
         ->get();
-        return view('items.index',compact('items'));
+        return view('admin.items.index',compact('items'));
     }
 
     /**
@@ -39,7 +39,7 @@ class ItemController extends Controller
      */
     public function create()
     {
-        return view('items.create');
+        return view('admin.items.create');
     }
 
     /**
@@ -60,7 +60,7 @@ class ItemController extends Controller
             'exp_date' => '',
         ]);
         $show = Product::create($validatedData);
-   
+
         return redirect('/items')->with('success', 'Data is successfully saved');
     }
 
@@ -84,7 +84,7 @@ class ItemController extends Controller
     public function edit($id)
     {
         $products = Product::findOrFail($id);
-        return view('items.edit', compact('products'));
+        return view('admin.items.edit', compact('products'));
     }
 
     /**
