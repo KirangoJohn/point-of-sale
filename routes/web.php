@@ -28,7 +28,7 @@ Route::get('/', function () {
 //Route::get('/products', 'App\Http\Controllers\ProductsController@index');
 Route::resource('company', 'CompanyController');
 Route::resource('products', 'ProductsController');
-Route::get('pos', [ProductsController::class, 'index'])->name('pos');  
+Route::get('pos', [ProductsController::class, 'index'])->name('pos');
 Route::get('cart', [ProductsController::class, 'cart'])->name('cart');
 Route::get('add-to-cart/{id}', [ProductsController::class, 'addToCart'])->name('add.to.cart');
 Route::patch('update-cart', [ProductsController::class, 'update'])->name('update.cart');
@@ -57,12 +57,12 @@ Route::get('salesreports.bydate', [SalesReportController::class, 'bydate'])->nam
 ///Route::resource('tests', 'TestController');
 
 
-//Route::post('/', [StockController::class, 'stocks'])->name('stocks/create'); 
+//Route::post('/', [StockController::class, 'stocks'])->name('stocks/create');
 Route::get('report/receipt', [ReceiptController::class, 'index'])->name('receipt');
 Route::get('generate-pdf', [PDFController::class, 'generatePDF']);
 
 Route::get('registration', [CustomAuthController::class, 'registration'])->name('register-user');
-Route::post('custom-registration', [CustomAuthController::class, 'customRegistration'])->name('register.custom'); 
+Route::post('custom-registration', [CustomAuthController::class, 'customRegistration'])->name('register.custom');
 Route::get('users', [CustomAuthController::class, 'index'])->name('users');
 
 Route::resource('users', 'CustomAuthController');
@@ -70,9 +70,11 @@ Route::resource('users', 'CustomAuthController');
 
 Auth::routes();
 
-Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::group(['middleware' => 'auth'], function (){
+    Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+});
 
-Route::get('logout',[AuthController::class, 'logout'])->name('logout');
+//Route::get('logout',[AuthController::class, 'logout'])->name('logout');
 Route::get('register',[App\Http\Auth\RegisterController::class, 'register'])->name('register');
 
 Route::group(['middleware'=>'auth'], function () {

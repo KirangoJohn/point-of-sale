@@ -33,20 +33,20 @@
                     @endauth
                 </div-->
             @endif
-     
+
   <section class="py-5 text-center container">
             <div class="text-center row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
-            <div><img src="{{ asset('storage/ZINOFIT LOGO-01.png') }}" width="100" height="100"></div>
+            <div><img src="{{ asset('images/logo.jpeg') }}" width="100" height="100"></div>
                 <h5>Zinofit Technologies</h5>
                 <p >With specialize in providing business solutions for SMEs through technology</p>
                 <h4>0724381736</h4>
                 <p>info@zinofit.com</p>
-                
+
                 @if (Route::has('login'))
                 <div class="card">
                 <div class="card-body">
-                    
+
                     @auth
                         <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
                     @else
